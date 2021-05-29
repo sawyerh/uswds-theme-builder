@@ -38,16 +38,14 @@ export default function Home() {
   return (
     <>
       <div className="grid-row">
-        <div className="grid-col-9">
-          <iframe
-            className="border-1px height-viewport width-full"
-            src="/preview"
-            title="Theme preview"
-            ref={previewIframeRef}
-          />
-        </div>
-
-        <main className="grid-col-3 bg-primary-darker height-viewport overflow-auto padding-2">
+        <main className="grid-col-3 bg-base-darkest height-viewport overflow-auto padding-2">
+          <div className="border-bottom-2px border-white margin-bottom-2 padding-bottom-2">
+            <label className="usa-label text-white">Settings</label>
+            <select className="usa-select">
+              <option>Colors</option>
+              <option>Typography</option>
+            </select>
+          </div>
           <form ref={formRef}>
             <Accordion>
               {Object.keys(colors).map((family) => (
@@ -65,6 +63,14 @@ export default function Home() {
             </Accordion>
           </form>
         </main>
+        <div className="grid-col-9">
+          <iframe
+            className="border-1px height-viewport width-full"
+            src="/preview"
+            title="Theme preview"
+            ref={previewIframeRef}
+          />
+        </div>
       </div>
     </>
   );

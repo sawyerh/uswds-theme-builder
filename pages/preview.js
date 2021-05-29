@@ -14,20 +14,31 @@ const compileEndpoint =
 export default function Home() {
   const [styles, setStyles] = useState("");
 
+  const loadStyles = async (settings = {}) => {
+    console.log("loadStyles", settings);
+    const response = await fetch(compileEndpoint, {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify({ settings }),
+    });
+
+    const body = await response.text();
+
+    setStyles(body);
+  };
+
   useEffect(() => {
-    const loadStyles = async () => {
-      const response = await fetch(compileEndpoint, {
-        method: "POST",
-        mode: "cors",
-      });
+    loadStyles();
+  }, []);
 
-      const body = await response.text();
-
-      setStyles(body);
+  useEffect(() => {
+    const handleFrameMessage = (event) => {
+      loadStyles(event.data);
     };
 
-    loadStyles();
-  });
+    window.addEventListener("message", handleFrameMessage, false);
+    return () => window.removeEventListener("message", handleFrameMessage);
+  }, [setStyles]);
 
   if (!styles) return <p>Loading</p>;
 

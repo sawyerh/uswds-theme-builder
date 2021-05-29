@@ -24,20 +24,26 @@ function RGBToHex(rgb) {
 }
 
 export default function Home() {
-  const [settings, setSetting] = useState({});
+  const [settings, setSetting] = useState();
   const formRef = useRef();
+  const previewIframeRef = useRef();
 
   const handleInputChange = () => {
     const formData = new FormData(formRef.current);
+    var updatedSettings = {};
 
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+    formData.forEach(function (value, key) {
+      updatedSettings[key] = value;
+    });
+
+    setSetting(updatedSettings);
   };
 
   useEffect(() => {
-    console.log("run effect", settings);
-  });
+    if (settings) {
+      previewIframeRef.current.contentWindow.postMessage(settings);
+    }
+  }, [settings, previewIframeRef]);
 
   return (
     <div className="padding-2">
@@ -47,6 +53,7 @@ export default function Home() {
             className="border-1px height-viewport width-full"
             src="/preview"
             title="Theme preview"
+            ref={previewIframeRef}
           />
         </div>
 

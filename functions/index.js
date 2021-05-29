@@ -10,13 +10,19 @@ app.use(cors);
 
 app.post("/compile", (request, response) => {
   functions.logger.info("Hello logs!", { structuredData: true });
-  console.log(request.body.settings);
+  const body = request.body ? JSON.parse(request.body) : {};
+  const themeSettings = body.settings
+    ? Object.entries(body.settings)
+        .map(([key, value]) => `$${key}: ${value};`)
+        .join("")
+    : "";
 
   const sassContent = `
     $theme-show-compile-warnings: false;
     $theme-show-notifications: false;
     $theme-font-path: "/fonts";
     $theme-image-path: "/img";
+    ${themeSettings}
     @import "uswds";
 `;
 

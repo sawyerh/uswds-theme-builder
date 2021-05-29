@@ -1,6 +1,11 @@
 $theme-show-compile-warnings: false;
 $theme-show-notifications: false;
+
+// Make fonts and images work in the preview
 $theme-font-path: "/fonts";
 $theme-image-path: "/img";
+
+// We need this so that we can identify the default colors for error, success, etc
+$background-color-palettes: ("palette-color-state");
 
 @import "uswds";

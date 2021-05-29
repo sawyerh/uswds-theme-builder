@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import classnames from "classnames";
 import dynamic from "next/dynamic";
 
 /**
@@ -13,9 +14,11 @@ const compileEndpoint =
 
 export default function Home() {
   const [styles, setStyles] = useState("");
+  const [isLoading, setIsLoading] = useState();
 
   const loadStyles = async (settings = {}) => {
-    console.log("loadStyles", settings);
+    setIsLoading(true);
+
     const response = await fetch(compileEndpoint, {
       method: "POST",
       mode: "cors",
@@ -25,6 +28,7 @@ export default function Home() {
     const body = await response.text();
 
     setStyles(body);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -43,9 +47,8 @@ export default function Home() {
   if (!styles) return <p>Loading</p>;
 
   return (
-    <div className="padding-2">
+    <div className={classnames("padding-2", { "opacity-30": isLoading })}>
       <style>{styles}</style>
-      <ScriptsForUSWDS />
 
       <a className="usa-skipnav" href="#main-content">
         Skip to main content
@@ -396,6 +399,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <ScriptsForUSWDS />
     </div>
   );
 }

@@ -1,39 +1,29 @@
+import Accordion, { AccordionItem } from "../components/Accordion";
 import { useEffect, useRef, useState } from "react";
+import rgbToHex from "../utils/rgbToHex";
 
 const colors = {
-  primary: ["lightest", "light", "", "dark", "darker", "darkest"],
-  "accent-cool": ["lightest", "light", "", "dark", "darker", "darkest"],
   base: ["lightest", "light", "", "dark", "darker", "darkest", "ink"],
+  primary: ["lighter", "light", "", "dark", "darker"],
+  secondary: ["lighter", "light", "", "dark", "darker"],
+  "accent-cool": ["lighter", "light", "", "dark", "darker"],
+  "accent-warm": ["lighter", "light", "", "dark", "darker"],
+  error: ["lighter", "light", "", "dark", "darker"],
+  warning: ["lighter", "light", "", "dark", "darker"],
+  success: ["lighter", "light", "", "dark", "darker"],
+  info: ["lighter", "light", "", "dark", "darker"],
+  emergency: ["", "dark"],
+  disabled: ["light", "", "dark"],
 };
-
-function RGBToHex(rgb) {
-  // Choose correct separator
-  let sep = rgb.indexOf(",") > -1 ? "," : " ";
-  // Turn "rgb(r,g,b)" into [r,g,b]
-  rgb = rgb.substr(4).split(")")[0].split(sep);
-
-  let r = (+rgb[0]).toString(16),
-    g = (+rgb[1]).toString(16),
-    b = (+rgb[2]).toString(16);
-
-  if (r.length == 1) r = "0" + r;
-  if (g.length == 1) g = "0" + g;
-  if (b.length == 1) b = "0" + b;
-
-  return "#" + r + g + b;
-}
 
 export default function Home() {
   const [settings, setSetting] = useState();
   const formRef = useRef();
   const previewIframeRef = useRef();
 
-  const handleInputChange = () => {
-    const formData = new FormData(formRef.current);
-    var updatedSettings = {};
-
-    formData.forEach(function (value, key) {
-      updatedSettings[key] = value;
+  const handleFieldBlur = (event) => {
+    const updatedSettings = Object.assign({}, settings, {
+      [event.target.name]: event.target.value,
     });
 
     setSetting(updatedSettings);
@@ -46,9 +36,9 @@ export default function Home() {
   }, [settings, previewIframeRef]);
 
   return (
-    <div className="padding-2">
-      <div className="grid-row grid-gap">
-        <div className="grid-col-8">
+    <>
+      <div className="grid-row">
+        <div className="grid-col-9">
           <iframe
             className="border-1px height-viewport width-full"
             src="/preview"
@@ -57,22 +47,26 @@ export default function Home() {
           />
         </div>
 
-        <div className="grid-col-4">
+        <main className="grid-col-3 bg-primary-darker height-viewport overflow-auto padding-2">
           <form ref={formRef}>
-            {Object.keys(colors).map((family) =>
-              colors[family].map((variation) => (
-                <InputColor
-                  key={`${family}_${variation}`}
-                  family={family}
-                  variation={variation}
-                  onChange={handleInputChange}
-                />
-              ))
-            )}
+            <Accordion>
+              {Object.keys(colors).map((family) => (
+                <AccordionItem heading={family}>
+                  {colors[family].map((variation) => (
+                    <InputColor
+                      key={`${family}_${variation}`}
+                      family={family}
+                      variation={variation}
+                      onBlur={handleFieldBlur}
+                    />
+                  ))}
+                </AccordionItem>
+              ))}
+            </Accordion>
           </form>
-        </div>
+        </main>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -89,7 +83,7 @@ const InputColor = (props) => {
     if (element) {
       const computedStyle = getComputedStyle(element);
       const rgb = computedStyle.getPropertyValue("background-color");
-      const hex = RGBToHex(rgb);
+      const hex = rgbToHex(rgb);
 
       setValue(hex);
     }
@@ -97,23 +91,23 @@ const InputColor = (props) => {
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    props.onChange();
   };
 
   return (
-    <>
-      <label className="usa-label font-mono-3xs" htmlFor={settingName}>
-        {colorName}
-      </label>
+    <div className="margin-bottom-2">
       <input
-        className="margin-top-05"
+        className="margin-right-1"
         type="color"
         onChange={handleChange}
+        onBlur={props.onBlur}
         name={settingName}
         value={value}
         id={settingName}
       />
+      <label className="font-mono-3xs" htmlFor={settingName}>
+        {colorName}
+      </label>
       <div ref={defaultColorElement} className={`bg-${colorName}`} />
-    </>
+    </div>
   );
 };

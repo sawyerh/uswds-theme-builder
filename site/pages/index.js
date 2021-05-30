@@ -6,13 +6,30 @@ import {
   GithubLogo,
   Sliders,
 } from "phosphor-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ColorTokens from "../components/ColorTokens";
+import classnames from "classnames";
 import useTokensManager from "../hooks/useTokensManager";
+
+const navButtons = [
+  {
+    icon: Sliders,
+    label: "Editor",
+  },
+  {
+    icon: FilePlus,
+    label: "Import",
+  },
+  {
+    icon: Clipboard,
+    label: "Export",
+  },
+];
 
 export default function Home() {
   const previewIframeRef = useRef();
   const tokensManager = useTokensManager();
+  const [activeNavButton, setActiveNavButton] = useState(navButtons[0]);
 
   /**
    * Send tokens into our Preview iFrame when they change
@@ -25,46 +42,41 @@ export default function Home() {
     <>
       <div className="grid-row">
         <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">
-          <div className="padding-2 border-bottom-1px border-base">
-            <button
-              type="button"
-              className="usa-button--unstyled text-white margin-right-2"
-            >
-              <span className="display-inline-block text-middle margin-right-05">
-                <Sliders size={18} />
-              </span>
-              Editor
-            </button>
-            <button
-              type="button"
-              className="usa-button--unstyled text-white margin-right-2"
-            >
-              <span className="display-inline-block text-middle margin-right-05">
-                <FilePlus size={18} />
-              </span>
-              Import
-            </button>
-            <button
-              type="button"
-              className="usa-button--unstyled text-white margin-right-2"
-            >
-              <span className="display-inline-block text-middle margin-right-05">
-                <Clipboard size={18} />
-              </span>
-              Export
-            </button>
+          <header className="text-white padding-2 border-bottom-1px border-base grid-row">
+            <h1 className="grid-col flex-align-self-center font-body-md margin-0">
+              USWDS Theme Builder
+            </h1>
             <a
               href="https://github.com/sawyerh/uswds-theme-builder"
-              className="text-white margin-right-2"
+              className="border-1px border-base hover:border-white circle-4 display-flex flex-align-center flex-justify-center grid-col-auto text-center text-no-underline text-base-lighter hover:text-white"
               target="_blank"
+              title="View on GitHub"
               rel="noreferrer"
             >
-              <span className="display-inline-block text-middle margin-right-05">
-                <GithubLogo size={18} />
-              </span>
-              GitHub
+              <GithubLogo size={16} weight="bold" />
             </a>
-          </div>
+          </header>
+          <nav className="border-bottom-1px border-base padding-left-1 padding-y-1">
+            {navButtons.map((navButton) => (
+              <button
+                type="button"
+                className={classnames(
+                  "padding-y-1 padding-x-1 font-body-2xs text-no-wrap usa-button--unstyled",
+                  {
+                    "text-accent-cool text-no-underline":
+                      navButton === activeNavButton,
+                    "text-white": navButton !== activeNavButton,
+                  }
+                )}
+                key={navButton.label}
+              >
+                <span className="display-inline-block text-middle margin-right-05">
+                  <navButton.icon size={16} />
+                </span>
+                {navButton.label}
+              </button>
+            ))}
+          </nav>
           <form
             onSubmit={(e) => e.preventDefault}
             className="padding-x-2 padding-y-3"

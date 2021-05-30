@@ -14,7 +14,7 @@ function useTokensManager() {
   const [tokens, setTokens] = useState({});
 
   /**
-   * Parse and store the token tokens from the URL query param
+   * Parse and store the tokens from the URL query param
    */
   useEffect(() => {
     if (!router.isReady) return;

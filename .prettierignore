@@ -1,0 +1,12 @@
+.next
+__snapshots__
+coverage
+examples
+node_modules
+# Web apps
+*/public/**/*.css
+*/public/**/*.js
+# Compiled code
+site/.next
+site/build
+site/out

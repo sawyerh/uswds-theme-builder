@@ -87,7 +87,7 @@ export default function Home() {
               <a
                 href="https://github.com/sawyerh/uswds-theme-builder"
                 className="usa-button--unstyled text-white margin-right-2 padding-y-1"
-                target="_blank"
+                target="_blank" rel="noreferrer"
               >
                 <span className="display-inline-block text-middle margin-right-05">
                   <GithubLogo size={18} />

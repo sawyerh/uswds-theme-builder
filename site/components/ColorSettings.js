@@ -37,7 +37,7 @@ const ColorSettings = (props) => {
       <a
         className="text-white margin-top-2 display-inline-block"
         href="https://designsystem.digital.gov/design-tokens/color/theme-tokens/"
-        target="_blank"
+        target="_blank" rel="noreferrer"
       >
         Learn about color tokens.
       </a>

@@ -1,7 +1,6 @@
 import Accordion, { AccordionItem } from "../components/Accordion";
 import { useEffect, useRef, useState } from "react";
 import rgbToHex from "../utils/rgbToHex";
-import { debounce } from "lodash";
 
 const colorFamilies = {
   base: ["lightest", "light", "", "dark", "darker", "darkest"],
@@ -19,20 +18,30 @@ const colorFamilies = {
 
 const ColorSettings = (props) => {
   return (
-    <Accordion>
-      {Object.entries(colorFamilies).map(([family, variations]) => (
-        <AccordionItem heading={family}>
-          {variations.map((variation) => (
-            <InputColor
-              key={`${family}_${variation}`}
-              family={family}
-              variation={variation}
-              onChange={props.onChange}
-            />
-          ))}
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <>
+      <Accordion>
+        {Object.entries(colorFamilies).map(([family, variations]) => (
+          <AccordionItem heading={family}>
+            {variations.map((variation) => (
+              <InputColor
+                key={`${family}_${variation}`}
+                family={family}
+                variation={variation}
+                onChange={props.onChange}
+              />
+            ))}
+          </AccordionItem>
+        ))}
+      </Accordion>
+
+      <a
+        className="text-white margin-top-2 display-inline-block"
+        href="https://designsystem.digital.gov/design-tokens/color/theme-tokens/"
+        target="_blank"
+      >
+        Learn about color tokens.
+      </a>
+    </>
   );
 };
 

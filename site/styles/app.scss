@@ -5,7 +5,9 @@ $theme-show-notifications: false;
 $theme-font-path: "/fonts";
 $theme-image-path: "/img";
 
+// Theme editor site settings
 $theme-font-type-sans: "public-sans";
+$utilities-use-important: true;
 
 // We need this so that we can identify the default colors for error, success, etc
 $background-color-palettes: ("palette-color-state");

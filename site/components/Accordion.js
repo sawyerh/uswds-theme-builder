@@ -45,10 +45,7 @@ AccordionItem.propTypes = {
  */
 function Accordion(props) {
   return (
-    <div
-      className="usa-accordion usa-accordion--bordered"
-      aria-multiselectable="true"
-    >
+    <div className="usa-accordion" aria-multiselectable="true">
       {props.children}
     </div>
   );

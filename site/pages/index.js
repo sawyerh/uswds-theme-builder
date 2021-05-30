@@ -1,115 +1,105 @@
-import { ArrowSquareOut, GithubLogo, Pencil } from "phosphor-react";
-import { useEffect, useRef, useState, useCallback } from "react";
-import ColorSettings from "../components/ColorSettings";
-import { debounce } from "lodash";
-import lzString from "lz-string";
-import { useRouter } from "next/router";
+import {
+  ArticleNyTimes,
+  Clipboard,
+  Drop,
+  FilePlus,
+  GithubLogo,
+  Sliders,
+} from "phosphor-react";
+import { useEffect, useRef } from "react";
+import ColorTokens from "../components/ColorTokens";
+import useTokensManager from "../hooks/useTokensManager";
 
 export default function Home() {
-  const [settings, setSetting] = useState();
-  const formRef = useRef();
   const previewIframeRef = useRef();
-  const router = useRouter();
-  const query = router.query;
+  const tokensManager = useTokensManager();
 
   /**
-   * Store the changed token setting in the URL query string
-   * @param {SyntheticEvent} event
-   */
-  const updateSettingFromInputEvent = (event) => {
-    const updatedSettings = {
-      ...settings,
-      [event.target.name]: event.target.value,
-    };
-    const url = new URL(window.location);
-
-    url.searchParams.set(
-      "settings",
-      lzString.compressToEncodedURIComponent(JSON.stringify(updatedSettings))
-    );
-    router.push(url.href);
-  };
-
-  /**
-   * Debounced version of our top-level change handler. Each input
-   * has its own change handler that is fired on every change, so we
-   * only need a debounced version to store the value in the global state
-   */
-  const debouncedUpdateSettingFromInputEvent = useCallback(
-    debounce((event) => updateSettingFromInputEvent(event), 1000),
-    []
-  );
-
-  /**
-   * Send settings into our Preview iFrame when they change
+   * Send tokens into our Preview iFrame when they change
    */
   useEffect(() => {
-    if (settings) {
-      previewIframeRef.current.contentWindow.postMessage(settings);
-    }
-  }, [settings, previewIframeRef]);
-
-  /**
-   * Parse and store the token settings from the URL query param
-   */
-  useEffect(() => {
-    if (!query.settings) return;
-    const decodedSettingsParam = lzString.decompressFromEncodedURIComponent(
-      query.settings
-    );
-    setSetting(JSON.parse(decodedSettingsParam));
-  }, [query.settings]);
+    previewIframeRef.current.contentWindow.postMessage(tokensManager.tokens);
+  }, [tokensManager.tokens, previewIframeRef]);
 
   return (
     <>
       <div className="grid-row">
-        <section className="grid-col-4 bg-black height-viewport overflow-auto">
-          <div className="bg-base-darker padding-2">
-            <div className="margin-bottom-2 padding-bottom-2 border-bottom-1px border-base-light">
-              <button
-                type="button"
-                className="usa-button--unstyled text-white margin-right-2 padding-y-1"
-              >
-                <span className="display-inline-block text-middle margin-right-05">
-                  <Pencil size={18} />
-                </span>
-                Editor
-              </button>
-              <button
-                type="button"
-                className="usa-button--unstyled text-white margin-right-2 padding-y-1"
-              >
-                <span className="display-inline-block text-middle margin-right-05">
-                  <ArrowSquareOut size={18} />
-                </span>
-                Export
-              </button>
-              <a
-                href="https://github.com/sawyerh/uswds-theme-builder"
-                className="usa-button--unstyled text-white margin-right-2 padding-y-1"
-                target="_blank" rel="noreferrer"
-              >
-                <span className="display-inline-block text-middle margin-right-05">
-                  <GithubLogo size={18} />
-                </span>
-                GitHub
-              </a>
+        <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">
+          <div className="padding-2 border-bottom-1px border-base">
+            <button
+              type="button"
+              className="usa-button--unstyled text-white margin-right-2"
+            >
+              <span className="display-inline-block text-middle margin-right-05">
+                <Sliders size={18} />
+              </span>
+              Editor
+            </button>
+            <button
+              type="button"
+              className="usa-button--unstyled text-white margin-right-2"
+            >
+              <span className="display-inline-block text-middle margin-right-05">
+                <FilePlus size={18} />
+              </span>
+              Import
+            </button>
+            <button
+              type="button"
+              className="usa-button--unstyled text-white margin-right-2"
+            >
+              <span className="display-inline-block text-middle margin-right-05">
+                <Clipboard size={18} />
+              </span>
+              Export
+            </button>
+            <a
+              href="https://github.com/sawyerh/uswds-theme-builder"
+              className="text-white margin-right-2"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="display-inline-block text-middle margin-right-05">
+                <GithubLogo size={18} />
+              </span>
+              GitHub
+            </a>
+          </div>
+          <form
+            onSubmit={(e) => e.preventDefault}
+            className="padding-x-2 padding-y-3"
+          >
+            <h2 className="text-white font-sans-lg margin-bottom-1 margin-top-0">
+              <span className="display-inline-block text-middle margin-right-05 text-mint">
+                <Drop size={30} weight="bold" />
+              </span>
+              Colors
+            </h2>
+            <a
+              className="text-white display-inline-block margin-bottom-2"
+              href="https://designsystem.digital.gov/design-tokens/color/theme-tokens/"
+              target="_blank"
+            >
+              Learn about color tokens.
+            </a>
+
+            <div className="margin-bottom-4">
+              <ColorTokens tokensManager={tokensManager} />
             </div>
 
-            <label
-              htmlFor="tokens-menu"
-              className="usa-label text-white margin-top-0"
+            <h2 className="text-white font-sans-lg margin-bottom-1">
+              <span className="display-inline-block text-middle margin-right-1 text-gold">
+                <ArticleNyTimes size={30} weight="regular" />
+              </span>
+              Typography
+            </h2>
+            <a
+              className="text-white display-inline-block margin-bottom-2"
+              href="https://designsystem.digital.gov/design-tokens/typesetting/overview/"
+              target="_blank"
             >
-              Tokens
-            </label>
-            <select id="tokens-menu" name="tokens-menu" className="usa-select">
-              <option>Colors</option>
-              <option>Spacing</option>
-              <option>Typography</option>
-            </select>
-          </div>
-          <form ref={formRef} className="padding-2">
-            <ColorSettings onChange={debouncedUpdateSettingFromInputEvent} />
+              Learn about typesetting tokens.
+            </a>
           </form>
         </section>
         <div className="grid-col-fill">

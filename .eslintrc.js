@@ -19,7 +19,8 @@ module.exports = {
   },
   plugins: ["jsx-a11y", "react", "react-hooks"],
   rules: {
-    "react/react-in-jsx-scope": "off",
+    "react/jsx-no-target-blank": "warn",
     "react/prop-types": "warn",
+    "react/react-in-jsx-scope": "off",
   },
 };

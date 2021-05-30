@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import classnames from "classnames";
+import { debounce } from "lodash";
 import dynamic from "next/dynamic";
 
 /**
@@ -17,11 +18,10 @@ export default function Preview() {
   const [isLoading, setIsLoading] = useState();
   const abortControllerRef = useRef();
 
-  const loadStyles = async (settings = {}) => {
+  const loadStyles = async (tokens = {}) => {
     let body;
 
     if (abortControllerRef.current) {
-      console.log("Abort signal");
       abortControllerRef.current.abort();
     }
 
@@ -30,7 +30,7 @@ export default function Preview() {
 
     try {
       const response = await fetch(compileEndpoint, {
-        body: JSON.stringify({ settings }),
+        body: JSON.stringify({ settings: tokens }),
         method: "POST",
         mode: "cors",
         signal: abortControllerRef.current.signal,
@@ -47,13 +47,15 @@ export default function Preview() {
     abortControllerRef.current = null;
   };
 
+  const debouncedLoadStyles = debounce((args) => loadStyles(args), 1000);
+
   useEffect(() => {
-    loadStyles();
+    debouncedLoadStyles();
   }, []);
 
   useEffect(() => {
     const handleFrameMessage = (event) => {
-      loadStyles(event.data);
+      debouncedLoadStyles(event.data);
     };
 
     window.addEventListener("message", handleFrameMessage, false);

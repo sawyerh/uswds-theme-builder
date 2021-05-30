@@ -29,15 +29,17 @@ export default function Home() {
   return (
     <>
       <div className="grid-row">
-        <main className="grid-col-3 bg-base-darkest height-viewport overflow-auto padding-2">
-          <div className="border-bottom-2px border-white margin-bottom-2 padding-bottom-2">
-            <label className="usa-label text-white">Settings</label>
+        <main className="grid-col-3 bg-base-darker height-viewport overflow-auto">
+          <nav className="bg-black padding-2">
+            <label className="usa-label text-white margin-top-0">
+              Settings
+            </label>
             <select className="usa-select">
               <option>Colors</option>
               <option>Typography</option>
             </select>
-          </div>
-          <form ref={formRef}>
+          </nav>
+          <form ref={formRef} className="padding-2">
             <ColorSettings onChange={debouncedUpdateSettingFromInputEvent} />
           </form>
         </main>

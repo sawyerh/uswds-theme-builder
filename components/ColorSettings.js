@@ -4,7 +4,7 @@ import rgbToHex from "../utils/rgbToHex";
 import { debounce } from "lodash";
 
 const colorFamilies = {
-  base: ["lightest", "light", "", "dark", "darker", "darkest", "ink"],
+  base: ["lightest", "light", "", "dark", "darker", "darkest"],
   primary: ["lighter", "light", "", "dark", "darker"],
   secondary: ["lighter", "light", "", "dark", "darker"],
   "accent-cool": ["lighter", "light", "", "dark", "darker"],
@@ -61,7 +61,7 @@ const InputColor = (props) => {
   };
 
   return (
-    <div className="margin-bottom-2">
+    <div className="margin-bottom-3">
       <input
         className="margin-right-1"
         type="color"
@@ -73,6 +73,7 @@ const InputColor = (props) => {
       <label className="font-mono-3xs" htmlFor={settingName}>
         {colorName}
       </label>
+      <div className="font-mono-3xs text-base margin-top-05">{value}</div>
       <div ref={defaultColorElement} className={`bg-${colorName}`} />
     </div>
   );

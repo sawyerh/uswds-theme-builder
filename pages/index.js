@@ -1,33 +1,24 @@
-import Accordion, { AccordionItem } from "../components/Accordion";
-import { useEffect, useRef, useState } from "react";
-import rgbToHex from "../utils/rgbToHex";
-
-const colors = {
-  base: ["lightest", "light", "", "dark", "darker", "darkest", "ink"],
-  primary: ["lighter", "light", "", "dark", "darker"],
-  secondary: ["lighter", "light", "", "dark", "darker"],
-  "accent-cool": ["lighter", "light", "", "dark", "darker"],
-  "accent-warm": ["lighter", "light", "", "dark", "darker"],
-  error: ["lighter", "light", "", "dark", "darker"],
-  warning: ["lighter", "light", "", "dark", "darker"],
-  success: ["lighter", "light", "", "dark", "darker"],
-  info: ["lighter", "light", "", "dark", "darker"],
-  emergency: ["", "dark"],
-  disabled: ["light", "", "dark"],
-};
+import { useEffect, useRef, useState, useCallback } from "react";
+import ColorSettings from "../components/ColorSettings";
+import { debounce } from "lodash";
 
 export default function Home() {
   const [settings, setSetting] = useState();
   const formRef = useRef();
   const previewIframeRef = useRef();
 
-  const handleFieldBlur = (event) => {
+  const updateSettingFromInputEvent = (event) => {
     const updatedSettings = Object.assign({}, settings, {
       [event.target.name]: event.target.value,
     });
 
     setSetting(updatedSettings);
   };
+
+  const debouncedUpdateSettingFromInputEvent = useCallback(
+    debounce((event) => updateSettingFromInputEvent(event), 1000),
+    []
+  );
 
   useEffect(() => {
     if (settings) {
@@ -47,20 +38,7 @@ export default function Home() {
             </select>
           </div>
           <form ref={formRef}>
-            <Accordion>
-              {Object.keys(colors).map((family) => (
-                <AccordionItem heading={family}>
-                  {colors[family].map((variation) => (
-                    <InputColor
-                      key={`${family}_${variation}`}
-                      family={family}
-                      variation={variation}
-                      onBlur={handleFieldBlur}
-                    />
-                  ))}
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <ColorSettings onChange={debouncedUpdateSettingFromInputEvent} />
           </form>
         </main>
         <div className="grid-col-9">
@@ -75,45 +53,3 @@ export default function Home() {
     </>
   );
 }
-
-const InputColor = (props) => {
-  const { family, variation } = props;
-  const colorName = variation ? `${family}-${variation}` : family;
-  const settingName = `theme-color-${colorName}`;
-  const [value, setValue] = useState("");
-  const defaultColorElement = useRef();
-
-  useEffect(() => {
-    const element = defaultColorElement.current;
-
-    if (element) {
-      const computedStyle = getComputedStyle(element);
-      const rgb = computedStyle.getPropertyValue("background-color");
-      const hex = rgbToHex(rgb);
-
-      setValue(hex);
-    }
-  }, [defaultColorElement]);
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  return (
-    <div className="margin-bottom-2">
-      <input
-        className="margin-right-1"
-        type="color"
-        onChange={handleChange}
-        onBlur={props.onBlur}
-        name={settingName}
-        value={value}
-        id={settingName}
-      />
-      <label className="font-mono-3xs" htmlFor={settingName}>
-        {colorName}
-      </label>
-      <div ref={defaultColorElement} className={`bg-${colorName}`} />
-    </div>
-  );
-};

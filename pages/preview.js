@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classnames from "classnames";
 import dynamic from "next/dynamic";
 
@@ -12,23 +12,39 @@ const ScriptsForUSWDS = dynamic(() => import("../components/ScriptsForUSWDS"), {
 const compileEndpoint =
   "http://localhost:5001/uswds-theme-builder/us-central1/app/compile";
 
-export default function Home() {
+export default function Preview() {
   const [styles, setStyles] = useState("");
   const [isLoading, setIsLoading] = useState();
+  const abortControllerRef = useRef();
 
   const loadStyles = async (settings = {}) => {
+    let body;
+
+    if (abortControllerRef.current) {
+      console.log("Abort signal");
+      abortControllerRef.current.abort();
+    }
+
+    abortControllerRef.current = new AbortController();
     setIsLoading(true);
 
-    const response = await fetch(compileEndpoint, {
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({ settings }),
-    });
+    try {
+      const response = await fetch(compileEndpoint, {
+        body: JSON.stringify({ settings }),
+        method: "POST",
+        mode: "cors",
+        signal: abortControllerRef.current.signal,
+      });
 
-    const body = await response.text();
+      body = await response.text();
+    } catch (error) {
+      console.error(error);
+      return;
+    }
 
     setStyles(body);
     setIsLoading(false);
+    abortControllerRef.current = null;
   };
 
   useEffect(() => {

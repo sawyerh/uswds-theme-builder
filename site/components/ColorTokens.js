@@ -1,49 +1,69 @@
 import Accordion, { AccordionItem } from "./Accordion";
 import { useEffect, useRef, useState } from "react";
 import rgbToHex from "../utils/rgbToHex";
+import tokensData from "../data/tokens.json";
+import { set } from "lodash";
 
-const colorFamilies = {
-  base: ["lightest", "light", "", "dark", "darker", "darkest"],
-  primary: ["lighter", "light", "", "dark", "darker"],
-  secondary: ["lighter", "light", "", "dark", "darker"],
-  "accent-cool": ["lighter", "light", "", "dark", "darker"],
-  "accent-warm": ["lighter", "light", "", "dark", "darker"],
-  error: ["lighter", "light", "", "dark", "darker"],
-  warning: ["lighter", "light", "", "dark", "darker"],
-  success: ["lighter", "light", "", "dark", "darker"],
-  info: ["lighter", "light", "", "dark", "darker"],
-  emergency: ["", "dark"],
-  disabled: ["light", "", "dark"],
+/**
+ * If a Sass color variable starts with one of these,
+ * a control will be rendered for it.
+ */
+const visibleVariablePrefixes = {
+  "$theme-color-base": [],
+  "$theme-color-primary": [],
+  "$theme-color-secondary": [],
+  "$theme-color-accent-cool": [],
+  "$theme-color-accent-warm": [],
+  "$theme-color-error": [],
+  "$theme-color-warning": [],
+  "$theme-color-success": [],
+  "$theme-color-info": [],
+  "$theme-color-emergency": [],
+  "$theme-color-disabled": [],
 };
+
+Object.keys(tokensData.colors).forEach((sassVariableName) => {
+  Object.keys(visibleVariablePrefixes).some((prefix) => {
+    if (sassVariableName.startsWith(prefix)) {
+      visibleVariablePrefixes[prefix].push(sassVariableName);
+      return true;
+    }
+  });
+});
 
 const ColorTokens = (props) => {
   return (
     <Accordion>
-      {Object.entries(colorFamilies).map(([family, variations]) => (
-        <AccordionItem key={family} heading={family}>
-          {variations.map((variation) => (
-            <InputColor
-              key={`${family}_${variation}`}
-              family={family}
-              tokensManager={props.tokensManager}
-              variation={variation}
-            />
-          ))}
-        </AccordionItem>
-      ))}
+      {Object.entries(visibleVariablePrefixes).map(
+        ([variablePrefix, sassVariables]) => (
+          <AccordionItem
+            key={variablePrefix}
+            heading={variablePrefix.replace("$theme-color-", "")}
+          >
+            {sassVariables.map((sassVariableName) => (
+              <InputColor
+                key={sassVariableName}
+                sassVariableName={sassVariableName}
+                tokensManager={props.tokensManager}
+                variablePrefix={variablePrefix}
+              />
+            ))}
+          </AccordionItem>
+        )
+      )}
     </Accordion>
   );
 };
 
 const InputColor = (props) => {
-  const { family, tokensManager, variation } = props;
+  const { sassVariableName, tokensManager } = props;
   const { handleChange, tokens } = tokensManager;
 
-  const colorName = variation ? `${family}-${variation}` : family;
-  const tokenName = `theme-color-${colorName}`;
-  const customValue = tokens ? tokens[tokenName] : null;
+  const colorName = sassVariableName.replace("$theme-color-", "");
+  const customValue = tokens ? tokens[sassVariableName] : null;
   const [defaultValue, setDefaultValue] = useState("");
   const defaultColorElement = useRef();
+  const id = sassVariableName.replace("$", "");
   const value = customValue || defaultValue;
 
   /**
@@ -66,14 +86,16 @@ const InputColor = (props) => {
         className="margin-right-1"
         type="color"
         onChange={handleChange}
-        name={tokenName}
+        name={sassVariableName}
         value={value}
-        id={tokenName}
+        id={id}
       />
-      <label className="font-mono-3xs" htmlFor={tokenName}>
+      <label className="font-mono-3xs" htmlFor={id}>
         {colorName}
       </label>
-      <div className="font-mono-3xs text-base margin-top-05">{value}</div>
+      <div className="font-mono-3xs text-base margin-top-05">
+        {sassVariableName}: {value}
+      </div>
       <div ref={defaultColorElement} className={`bg-${colorName}`} />
     </div>
   );

@@ -59,6 +59,7 @@ export default function Home() {
           <nav className="border-bottom-1px border-base padding-left-1 padding-y-1">
             {navButtons.map((navButton) => (
               <button
+                aria-current={String(navButton.label === activeNavButton.label)}
                 type="button"
                 className={classnames(
                   "padding-y-1 padding-x-1 font-body-2xs hover:text-white text-no-wrap usa-button--unstyled",

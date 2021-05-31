@@ -61,17 +61,25 @@ export default function Home() {
               <button
                 type="button"
                 className={classnames(
-                  "padding-y-1 padding-x-1 font-body-2xs text-no-wrap usa-button--unstyled",
+                  "padding-y-1 padding-x-1 font-body-2xs hover:text-white text-no-wrap usa-button--unstyled",
                   {
-                    "text-accent-cool text-no-underline":
-                      navButton === activeNavButton,
-                    "text-white": navButton !== activeNavButton,
+                    "text-white text-no-underline text-bold":
+                      navButton.label === activeNavButton.label,
+                    "text-base-lighter":
+                      navButton.label !== activeNavButton.label,
                   }
                 )}
                 key={navButton.label}
               >
                 <span className="display-inline-block text-middle margin-right-05">
-                  <navButton.icon size={16} />
+                  <navButton.icon
+                    size={16}
+                    weight={
+                      navButton.label === activeNavButton.label
+                        ? "bold"
+                        : "regular"
+                    }
+                  />
                 </span>
                 {navButton.label}
               </button>

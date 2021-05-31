@@ -13,7 +13,7 @@ app.post("/compile", (request, response) => {
   const body = request.body ? JSON.parse(request.body) : {};
   const themeSettings = body.settings
     ? Object.entries(body.settings)
-        .map(([key, value]) => `$${key}: ${value};`)
+        .map(([key, value]) => `${key}: ${value};`)
         .join("")
     : "";
 

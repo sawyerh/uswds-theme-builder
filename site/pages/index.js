@@ -8,6 +8,7 @@ import {
 } from "phosphor-react";
 import { useEffect, useRef, useState } from "react";
 import ColorTokens from "../components/ColorTokens";
+import IconButton from "../components/IconButton";
 import classnames from "classnames";
 import useTokensManager from "../hooks/useTokensManager";
 
@@ -58,11 +59,11 @@ export default function Home() {
           </header>
           <nav className="border-bottom-1px border-base padding-left-1 padding-y-1">
             {navButtons.map((navButton) => (
-              <button
+              <IconButton
+                key={navButton.label}
                 aria-current={String(navButton.label === activeNavButton.label)}
-                type="button"
                 className={classnames(
-                  "padding-y-1 padding-x-1 font-body-2xs hover:text-white text-no-wrap usa-button--unstyled",
+                  "padding-y-1 padding-x-1 font-body-2xs hover:text-white",
                   {
                     "text-white text-no-underline text-bold":
                       navButton.label === activeNavButton.label,
@@ -70,20 +71,16 @@ export default function Home() {
                       navButton.label !== activeNavButton.label,
                   }
                 )}
-                key={navButton.label}
+                icon={navButton.icon}
+                iconProps={{
+                  weight:
+                    navButton.label === activeNavButton.label
+                      ? "bold"
+                      : "regular",
+                }}
               >
-                <span className="display-inline-block text-middle margin-right-05">
-                  <navButton.icon
-                    size={16}
-                    weight={
-                      navButton.label === activeNavButton.label
-                        ? "bold"
-                        : "regular"
-                    }
-                  />
-                </span>
                 {navButton.label}
-              </button>
+              </IconButton>
             ))}
           </nav>
           <form
@@ -124,6 +121,7 @@ export default function Home() {
           </form>
         </section>
         <div className="grid-col-fill">
+          <div className=""></div>
           <iframe
             className="border-1px height-viewport width-full"
             src="/preview"

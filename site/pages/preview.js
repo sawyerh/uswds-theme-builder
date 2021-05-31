@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import classnames from "classnames";
-import { debounce } from "lodash";
 import dynamic from "next/dynamic";
+import { useDebouncedCallback } from "use-debounce";
 
 /**
  * Exclude USWDS scripts from SSR since it breaks otherwise
@@ -18,7 +18,7 @@ export default function Preview() {
   const [isLoading, setIsLoading] = useState();
   const abortControllerRef = useRef();
 
-  const loadStyles = async (tokens = {}) => {
+  const loadStyles = useDebouncedCallback(async (tokens = {}) => {
     let body;
 
     if (abortControllerRef.current) {
@@ -45,17 +45,15 @@ export default function Preview() {
     setStyles(body);
     setIsLoading(false);
     abortControllerRef.current = null;
-  };
-
-  const debouncedLoadStyles = debounce((args) => loadStyles(args), 1000);
+  }, 1000);
 
   useEffect(() => {
-    debouncedLoadStyles();
+    loadStyles();
   }, []);
 
   useEffect(() => {
     const handleFrameMessage = (event) => {
-      debouncedLoadStyles(event.data);
+      loadStyles(event.data);
     };
 
     window.addEventListener("message", handleFrameMessage, false);

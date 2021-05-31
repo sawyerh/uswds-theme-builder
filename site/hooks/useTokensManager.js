@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { debounce } from "lodash";
+import { useEffect, useState } from "react";
 import lzString from "lz-string";
+import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
 
 /**
@@ -12,6 +12,7 @@ function useTokensManager() {
   const router = useRouter();
   const query = router.query;
   const [tokens, setTokens] = useState({});
+  const [debouncedTokens] = useDebounce(tokens, 1000);
 
   /**
    * Parse and store the tokens from the URL query param
@@ -22,6 +23,15 @@ function useTokensManager() {
     setTokens(tokensObject);
   }, [router.isReady]);
 
+  /**
+   * Update the query string when the tokens change. Use the debounced
+   * version of these tokens as the trigger, so we don't send a bunch
+   * of expensive API requests every time a field changes
+   */
+  useEffect(() => {
+    updateTokensQuery();
+  }, [debouncedTokens]);
+
   const handleChange = (event) => {
     const updatedTokens = {
       ...tokens,
@@ -29,7 +39,6 @@ function useTokensManager() {
     };
 
     setTokens(updatedTokens);
-    debouncedUpdateTokensQuery(updatedTokens);
   };
 
   /**
@@ -54,27 +63,16 @@ function useTokensManager() {
 
   /**
    * Save the changed token to the URL query param
-   * @param {object} updatedTokens
    */
-  const updateTokensQuery = (updatedTokens) => {
+  const updateTokensQuery = () => {
     const url = new URL(window.location);
 
     url.searchParams.set(
       "tokens",
-      lzString.compressToEncodedURIComponent(JSON.stringify(updatedTokens))
+      lzString.compressToEncodedURIComponent(JSON.stringify(tokens))
     );
     router.push(url.href);
   };
-
-  /**
-   * Debounced version of our top-level change handler. Each input
-   * has its own change handler that is fired on every change, so we
-   * only need a debounced version to store the value in the global state
-   */
-  const debouncedUpdateTokensQuery = useCallback(
-    debounce((updatedTokens) => updateTokensQuery(updatedTokens), 1000),
-    []
-  );
 
   return {
     handleChange,

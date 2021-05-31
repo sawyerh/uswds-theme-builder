@@ -3,7 +3,9 @@ import {
   Clipboard,
   Drop,
   FilePlus,
+  FrameCorners,
   GithubLogo,
+  PuzzlePiece,
   Sliders,
 } from "phosphor-react";
 import { useEffect, useRef, useState } from "react";
@@ -123,6 +125,20 @@ export default function Home() {
             >
               Learn about typesetting tokens.
             </a>
+
+            <h2 className="text-white font-sans-lg">
+              <span className="display-inline-block text-middle margin-right-1 text-cyan">
+                <FrameCorners size={30} weight="bold" />
+              </span>
+              Spacing
+            </h2>
+
+            <h2 className="text-white font-sans-lg">
+              <span className="display-inline-block text-middle margin-right-1 text-orange">
+                <PuzzlePiece size={30} weight="bold" />
+              </span>
+              Components
+            </h2>
           </form>
         </section>
         <div className="grid-col-fill display-flex flex-column">

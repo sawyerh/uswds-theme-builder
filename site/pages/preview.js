@@ -65,7 +65,7 @@ export default function Preview() {
   if (!styles) return <p>Loading</p>;
 
   return (
-    <div className={classnames("padding-2", { "opacity-30": isLoading })}>
+    <div className={classnames("padding-05", { "opacity-30": isLoading })}>
       <style>{styles}</style>
 
       <a className="usa-skipnav" href="#main-content">

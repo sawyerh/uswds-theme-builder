@@ -13,3 +13,5 @@ $utilities-use-important: true;
 $background-color-palettes: ("palette-color-state");
 
 @import "uswds";
+@import "codemirror/lib/codemirror.css";
+@import "codemirror/theme/vibrant-ink.css";

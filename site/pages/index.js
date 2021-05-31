@@ -1,6 +1,7 @@
 import {
   ArticleNyTimes,
   Clipboard,
+  Code,
   Drop,
   FilePlus,
   GithubLogo,
@@ -9,8 +10,13 @@ import {
 import { useEffect, useRef, useState } from "react";
 import ColorTokens from "../components/ColorTokens";
 import IconButton from "../components/IconButton";
+import { UnControlled as CodeMirror } from "react-codemirror2";
 import classnames from "classnames";
 import useTokensManager from "../hooks/useTokensManager";
+
+if (typeof window !== "undefined") {
+  require("codemirror/mode/xml/xml");
+}
 
 const navButtons = [
   {
@@ -120,14 +126,32 @@ export default function Home() {
             </a>
           </form>
         </section>
-        <div className="grid-col-fill">
-          <div className=""></div>
-          <iframe
-            className="border-1px height-viewport width-full"
-            src="/preview"
-            title="Theme preview"
-            ref={previewIframeRef}
-          />
+        <div className="grid-col-fill display-flex flex-column">
+          <div className="bg-base-lighter flex-fill position-relative">
+            <iframe
+              className="border-0 pin-all height-full width-full"
+              src="/preview"
+              title="Theme preview"
+              ref={previewIframeRef}
+            />
+          </div>
+          <div className="bg-black width-full">
+            <div className="text-right">
+              <IconButton className="padding-105 text-white" icon={Code}>
+                Show HTML Editor
+              </IconButton>
+            </div>
+            <div className="font-mono-md">
+              <CodeMirror
+                value="<h1>I ♥ react-codemirror2</h1>"
+                options={{
+                  mode: "xml",
+                  theme: "vibrant-ink",
+                  lineNumbers: true,
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -18,6 +18,10 @@ export default function Preview() {
   const [isLoading, setIsLoading] = useState();
   const abortControllerRef = useRef();
 
+  /**
+   * Load USWDS styles for the preview
+   * @param {object} [tokens] - Sass theme tokens
+   */
   const loadStyles = useDebouncedCallback(async (tokens = {}) => {
     let body;
 

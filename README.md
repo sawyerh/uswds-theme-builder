@@ -1,6 +1,6 @@
 # USWDS Theme Builder
 
-🚨 **This is super early in development and not ready for general use**. There is a lot still missing, and it suffers from Sass compilation performance issues in the Firebase Functions context. Performance may be bearable when you run things locally. Migrating from the Sass JS API to the Sass Dark API is something I'm investigating.
+🚨 **This is super early in development and not ready for general use**. There is a lot still missing, and it suffers from Sass compilation performance issues in the Firebase Functions context. Performance may be bearable when you run things locally. Migrating from the Sass JS API to the Sass Dart API is something I'm investigating.
 
 ## Local development
 

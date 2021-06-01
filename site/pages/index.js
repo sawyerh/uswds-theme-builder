@@ -92,7 +92,7 @@ export default function Home() {
           </nav>
           <form
             onSubmit={(e) => e.preventDefault}
-            className="padding-x-2 padding-y-3 usa-form"
+            className="padding-x-2 padding-y-3 usa-form maxw-none"
           >
             <h2 className="text-white font-sans-lg margin-bottom-1 margin-top-0">
               <span className="display-inline-block text-middle margin-right-05 text-mint">

@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "deploy": "./bin/deploy.sh",
     "lint": "eslint --ext .js ./ --fix",
     "prettier": "prettier --write '**/*.{js,json,md,mdx,scss,yaml,yml}'"
   },

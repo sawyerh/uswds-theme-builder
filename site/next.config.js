@@ -4,7 +4,7 @@ module.exports = {
   env: {
     API_BASE_URL:
       process.env.NODE_ENV === "production"
-        ? "http://localhost/uswds-theme-builder/us-central1/app"
+        ? "https://uswds-theme-builder.web.app/us-central1/app"
         : "http://localhost:5001/uswds-theme-builder/us-central1/app",
   },
   sassOptions: {

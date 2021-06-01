@@ -19,8 +19,5 @@
     "sass": "^1.32.13",
     "uswds": "^2.11.2"
   },
-  "devDependencies": {
-    "firebase-functions-test": "^0.2.0"
-  },
   "private": true
 }

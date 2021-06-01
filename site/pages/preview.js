@@ -10,8 +10,7 @@ const ScriptsForUSWDS = dynamic(() => import("../components/ScriptsForUSWDS"), {
   ssr: false,
 });
 
-const compileEndpoint =
-  "http://localhost:5001/uswds-theme-builder/us-central1/app/compile";
+const compileEndpoint = `${process.env.API_BASE_URL}/compile`;
 
 export default function Preview() {
   const [styles, setStyles] = useState("");

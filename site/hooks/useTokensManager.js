@@ -32,13 +32,17 @@ function useTokensManager() {
     updateTokensQuery();
   }, [debouncedTokens]);
 
-  const handleChange = (event) => {
+  const setToken = (name, value) => {
     const updatedTokens = {
       ...tokens,
-      [event.target.name]: event.target.value,
+      [name]: value,
     };
 
     setTokens(updatedTokens);
+  };
+
+  const handleChange = (event) => {
+    setToken(event.target.name, event.target.value);
   };
 
   /**
@@ -76,6 +80,7 @@ function useTokensManager() {
 
   return {
     handleChange,
+    setToken,
     tokens,
   };
 }

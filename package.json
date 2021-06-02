@@ -5,6 +5,9 @@
     "lint": "eslint --ext .js ./ --fix",
     "prettier": "prettier --write '**/*.{js,json,md,mdx,scss,yaml,yml}'"
   },
+  "dependencies": {
+    "uswds": "^2.11.2"
+  },
   "devDependencies": {
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",

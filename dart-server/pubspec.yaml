@@ -1,0 +1,16 @@
+name: uswds_theme_builder
+publish_to: none # not intended for publication to pub.dev
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  sass: ^1.34.0
+  shelf: ^1.0.0
+  shelf_router: ^1.0.0
+  shelf_static: ^1.0.0
+
+dev_dependencies:
+  http: ^0.13.0
+  test: ^1.15.0
+  test_process: ^2.0.0

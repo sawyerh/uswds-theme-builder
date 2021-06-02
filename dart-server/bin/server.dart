@@ -56,6 +56,8 @@ Response _compileHandler(Request request) {
   \$theme-show-notifications: false;
   @import "./uswds/uswds.scss";
 ''';
+
+  // https://github.com/dart-lang/sdk/issues/46141
   var output = sass.compileString(source,
       loadPaths: ['bin'], quietDeps: true, verbose: true);
   return Response.ok(output);

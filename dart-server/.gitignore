@@ -2,4 +2,4 @@
 .dart_tool/
 .packages
 pubspec.lock
-bin/uswds
+uswds

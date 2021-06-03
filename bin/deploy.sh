@@ -1,3 +1,4 @@
 trash site/out
 npm run build --prefix site
-firebase deploy
+# Excluding Firebase function deploy in favor of the dart-sass-server Cloud Run instead
+firebase deploy --only hosting

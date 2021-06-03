@@ -23,10 +23,18 @@ Future main() async {
     port,
   );
 
+  server.autoCompress = true;
+
   print('Serving at http://${server.address.host}:${server.port}');
 }
 
 Future<Response> _compileHandler(Request request) async {
+  const corsHeaders = {'Access-Control-Allow-Origin': '*'};
+
+  if (request.method == 'OPTIONS') {
+    return new Response.ok(null, headers: corsHeaders);
+  }
+
   var bodyRaw = await request.readAsString();
   var body = bodyRaw.isNotEmpty ? json.decode(bodyRaw) : {};
   var tokens = [];
@@ -40,7 +48,9 @@ Future<Response> _compileHandler(Request request) async {
   @import "../public/uswds/uswds.scss";
 ''';
 
-  var output = sass.compileString(source, loadPaths: ['bin'], quietDeps: true);
+  var output = sass.compileString(source,
+      loadPaths: ['bin'], quietDeps: true, style: sass.OutputStyle.compressed);
 
-  return Response.ok(output);
+  return Response.ok(output,
+      headers: {'Content-Type': 'text/css', ...corsHeaders});
 }

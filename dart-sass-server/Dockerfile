@@ -18,8 +18,6 @@ RUN dart compile exe bin/server.dart -o bin/server
 FROM scratch
 COPY --from=build /runtime/ /
 COPY --from=build /app/bin/server /app/bin/
-
-# Include files in the /public directory to enable static asset handling
 COPY --from=build /app/public/ /public
 
 # Start server.

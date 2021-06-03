@@ -28,7 +28,8 @@ Get started:
 ### File structure
 
 ```
-├── bin           🤖 Development scripts
-├── functions     ⚡️ Serverless endpoint for Sass compilation
-└── site          🎨 Frontend
+├── bin              🤖 Development scripts
+├── dart-sass-server ⚡️ Proof-of-concept Dart Sass compilation
+├── functions        ⚡️ Proof-of-concept JS Sass compilation
+└── site             🎨 Frontend
 ```

@@ -54,7 +54,7 @@ Response _compileHandler(Request request) {
   \$test: #ff0000;
   body { color: \$test };
   \$theme-show-notifications: false;
-  @import "./uswds/uswds.scss";
+  @import "../public/uswds/uswds.scss";
 ''';
 
   // https://github.com/dart-lang/sdk/issues/46141

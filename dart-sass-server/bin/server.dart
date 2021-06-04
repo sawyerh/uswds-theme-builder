@@ -32,7 +32,7 @@ Future<Response> _compileHandler(Request request) async {
   const corsHeaders = {'Access-Control-Allow-Origin': '*'};
 
   if (request.method == 'OPTIONS') {
-    return new Response.ok(null, headers: corsHeaders);
+    return Response.ok(null, headers: corsHeaders);
   }
 
   var bodyRaw = await request.readAsString();
@@ -48,6 +48,8 @@ Future<Response> _compileHandler(Request request) async {
   @import "../public/uswds/uswds.scss";
 ''';
 
+  // There's an issue somewhere, related to the luminance function in USWDS that results in
+  // a "Infinity or NaN toInt" exception to throw. Related: https://github.com/sass/dart-sass/issues/1059
   var output = sass.compileString(source,
       loadPaths: ['bin'], quietDeps: true, style: sass.OutputStyle.compressed);
 

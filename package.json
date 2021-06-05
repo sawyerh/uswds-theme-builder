@@ -1,12 +1,11 @@
 {
+  "name": "uswds-theme-builder-root",
+  "private": true,
   "scripts": {
-    "deploy": "./bin/deploy.sh",
-    "setup": "./bin/setup.sh",
+    "deploy": "./scripts/deploy.sh",
+    "setup": "./scripts/setup.sh",
     "lint": "eslint --ext .js ./ --fix",
     "prettier": "prettier --write '**/*.{js,json,md,mdx,scss,yaml,yml}'"
-  },
-  "dependencies": {
-    "uswds": "^2.11.2"
   },
   "devDependencies": {
     "eslint": "^7.27.0",

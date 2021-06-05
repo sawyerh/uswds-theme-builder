@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "deploy": "./scripts/deploy.sh",
     "dev": "next dev",
     "build": "next build && next export",
-    "postinstall": "./bin/postinstall-uswds.sh",
+    "postinstall": "./scripts/postinstall-uswds.sh",
     "start": "next start"
   },
   "dependencies": {

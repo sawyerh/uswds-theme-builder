@@ -10,7 +10,7 @@ const ScriptsForUSWDS = dynamic(() => import("../components/ScriptsForUSWDS"), {
   ssr: false,
 });
 
-const compileEndpoint = `${process.env.API_BASE_URL}/compile`;
+const compileEndpoint = `https://dart-sass-compiler-sx3jbfg55a-uc.a.run.app/compile`;
 
 export default function Preview() {
   const [styles, setStyles] = useState("");
@@ -33,7 +33,7 @@ export default function Preview() {
 
     try {
       const response = await fetch(compileEndpoint, {
-        body: JSON.stringify({ settings: tokens }),
+        body: JSON.stringify({ ...tokens }),
         method: "POST",
         mode: "cors",
         signal: abortControllerRef.current.signal,
@@ -63,7 +63,7 @@ export default function Preview() {
     return () => window.removeEventListener("message", handleFrameMessage);
   }, [setStyles]);
 
-  if (!styles) return <p>Loading</p>;
+  if (isLoading) return <p>Loading</p>;
 
   return (
     <div className={classnames("padding-05", { "opacity-30": isLoading })}>

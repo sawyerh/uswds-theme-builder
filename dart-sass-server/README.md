@@ -1,11 +1,13 @@
+## Local development
+
+Prerequisites:
+
+- Dart or Docker
+
 ## Deploy
 
 ```
-gcloud builds submit --tag gcr.io/uswds-theme-builder/dart-sass-compiler
-```
-
-```
-gcloud run deploy --image gcr.io/uswds-theme-builder/dart-sass-compiler
+npm run deploy
 ```
 
 ## Usage

@@ -74,6 +74,9 @@ Future<String> createSassContents(Request request) async {
   \$theme-show-notifications: false;
   \$theme-show-compile-warnings: false;
 
+  /* Don't let the theme site's utilities override the previews */
+  \$utilities-use-important: true;
+
   /*
     Custom Sass variables passed in through the request
   */

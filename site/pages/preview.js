@@ -14,6 +14,8 @@ const compileEndpoint = `https://dart-sass-compiler-sx3jbfg55a-uc.a.run.app/comp
 
 export default function Preview() {
   const [styles, setStyles] = useState("");
+  const [tokensCache, setTokensCache] = useState({});
+  const [previewError, setPreviewError] = useState();
   const [isLoading, setIsLoading] = useState();
   const abortControllerRef = useRef();
 
@@ -21,42 +23,40 @@ export default function Preview() {
    * Load USWDS styles for the preview
    * @param {object} [tokens] - Sass theme tokens
    */
-  const loadStyles = useDebouncedCallback(async (tokens = {}) => {
+  const loadStyles = useDebouncedCallback(async () => {
     let body;
 
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-
+    if (abortControllerRef.current) abortControllerRef.current.abort();
     abortControllerRef.current = new AbortController();
+
     setIsLoading(true);
+    setPreviewError(null);
 
     try {
       const response = await fetch(compileEndpoint, {
-        body: JSON.stringify({ ...tokens }),
+        body: JSON.stringify({ ...tokensCache }),
         method: "POST",
         mode: "cors",
         signal: abortControllerRef.current.signal,
       });
 
       body = await response.text();
+      response.ok ? setStyles(body) : setPreviewError(body);
     } catch (error) {
       console.error(error);
-      return;
     }
 
-    setStyles(body);
     setIsLoading(false);
     abortControllerRef.current = null;
   }, 1000);
 
   useEffect(() => {
     loadStyles();
-  }, []);
+  }, [tokensCache]);
 
   useEffect(() => {
     const handleFrameMessage = (event) => {
-      loadStyles(event.data);
+      setTokensCache(event.data);
     };
 
     window.addEventListener("message", handleFrameMessage, false);
@@ -76,110 +76,34 @@ export default function Preview() {
           <div>Building theme</div>
         </div>
       ) : null}
+
+      {previewError ? (
+        <div className="font-mono-3xs text-white pin-top position-fixed z-top width-full overflow-y-auto maxh-viewport">
+          <pre
+            className="overflow-x-auto margin-0 padding-105"
+            style={{ backgroundColor: "#b50909" }}
+          >
+            {previewError}
+          </pre>
+          <div className="bg-base-darkest padding-105">
+            <strong>
+              Attempted to create theme using the following Sass variables:
+            </strong>
+            {Object.entries(tokensCache).map(([tokenKey, tokenVar]) => (
+              <code className="display-block margin-y-05" key={tokenKey}>
+                {tokenKey}: {tokenVar};
+              </code>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       <style>{styles}</style>
+
       <div className="padding-05">
         <a className="usa-skipnav" href="#main-content">
           Skip to main content
         </a>
-
-        <section
-          className="usa-banner"
-          aria-label="Official government website"
-        >
-          <div className="usa-accordion">
-            <header className="usa-banner__header">
-              <div className="usa-banner__inner">
-                <div className="grid-col-auto">
-                  <img
-                    className="usa-banner__header-flag"
-                    src="/img/us_flag_small.png"
-                    alt="U.S. flag"
-                  />
-                </div>
-                <div className="grid-col-fill tablet:grid-col-auto">
-                  <p className="usa-banner__header-text">
-                    An official website of the United States government
-                  </p>
-                  <p className="usa-banner__header-action" aria-hidden="true">
-                    Here’s how you know
-                  </p>
-                </div>
-                <button
-                  className="usa-accordion__button usa-banner__button"
-                  aria-expanded="false"
-                  aria-controls="gov-banner"
-                >
-                  <span className="usa-banner__button-text">
-                    Here’s how you know
-                  </span>
-                </button>
-              </div>
-            </header>
-            <div
-              className="usa-banner__content usa-accordion__content"
-              id="gov-banner"
-            >
-              <div className="grid-row grid-gap-lg">
-                <div className="usa-banner__guidance tablet:grid-col-6">
-                  <img
-                    className="usa-banner__icon usa-media-block__img"
-                    src="/img/icon-dot-gov.svg"
-                    role="img"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                  <div className="usa-media-block__body">
-                    <p>
-                      <strong>Official websites use .gov</strong>
-                      <br />A <strong>.gov</strong> website belongs to an
-                      official government organization in the United States.
-                    </p>
-                  </div>
-                </div>
-                <div className="usa-banner__guidance tablet:grid-col-6">
-                  <img
-                    className="usa-banner__icon usa-media-block__img"
-                    src="/img/icon-https.svg"
-                    role="img"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                  <div className="usa-media-block__body">
-                    <p>
-                      <strong>Secure .gov websites use HTTPS</strong>
-                      <br />A <strong>lock</strong> (
-                      <span className="icon-lock">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="52"
-                          height="64"
-                          viewBox="0 0 52 64"
-                          className="usa-banner__lock-image"
-                          role="img"
-                          aria-labelledby="banner-lock-title banner-lock-description"
-                          focusable="false"
-                        >
-                          <title id="banner-lock-title">Lock</title>
-                          <desc id="banner-lock-description">
-                            A locked padlock
-                          </desc>
-                          <path
-                            fill="#000000"
-                            fillRule="evenodd"
-                            d="M26 0c10.493 0 19 8.507 19 19v9h3a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4h3v-9C7 8.507 15.507 0 26 0zm0 8c-5.979 0-10.843 4.77-10.996 10.712L15 19v9h22v-9c0-6.075-4.925-11-11-11z"
-                          />
-                        </svg>
-                      </span>
-                      ) or <strong>https://</strong> means you’ve safely
-                      connected to the .gov website. Share sensitive information
-                      only on official, secure websites.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <div className="usa-overlay"></div>
         <header className="usa-header usa-header--extended">
@@ -187,7 +111,7 @@ export default function Preview() {
             <div className="usa-logo" id="extended-logo">
               <em className="usa-logo__text">
                 <a href="/" title="Home" aria-label="Home">
-                  Project title
+                  Site title
                 </a>
               </em>
             </div>
@@ -301,7 +225,10 @@ export default function Preview() {
         </header>
 
         <main id="main-content">
-          <section className="usa-hero" aria-label="Introduction">
+          <section
+            className="usa-hero bg-base-lightest"
+            aria-label="Introduction"
+          >
             <div className="grid-container">
               <div className="usa-hero__callout">
                 <h1 className="usa-hero__heading">

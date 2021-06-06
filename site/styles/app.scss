@@ -4,10 +4,11 @@ $theme-show-notifications: false;
 // Make fonts and images work in the site and preview iframe
 $theme-font-path: "/fonts";
 $theme-image-path: "/img";
+// Make utility classes behave as expected
+$utilities-use-important: true;
 
 // Theme editor site settings
 $theme-font-type-sans: "public-sans";
-$utilities-use-important: true;
 
 // We need this so that we can identify the default colors for error, success, etc
 $background-color-palettes: ("palette-color-state");

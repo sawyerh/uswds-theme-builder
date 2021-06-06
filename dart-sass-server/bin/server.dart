@@ -49,7 +49,7 @@ Future<Response> _requestHandler(Request request) async {
 
     return Response.ok(output, headers: {'Content-Type': 'text/css'});
   } on sass.SassException catch (e) {
-    return Response(400, body: e.toCssString());
+    return Response(400, body: e.toString());
   }
 }
 

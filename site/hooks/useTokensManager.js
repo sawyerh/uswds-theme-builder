@@ -70,11 +70,16 @@ function useTokensManager() {
    */
   const updateTokensQuery = () => {
     const url = new URL(window.location);
+    const queryParamName = "tokens";
 
-    url.searchParams.set(
-      "tokens",
-      lzString.compressToEncodedURIComponent(JSON.stringify(tokens))
-    );
+    if (tokens && Object.entries(tokens).length) {
+      url.searchParams.set(
+        queryParamName,
+        lzString.compressToEncodedURIComponent(JSON.stringify(tokens))
+      );
+    } else {
+      url.searchParams.delete(queryParamName);
+    }
     router.push(url.href);
   };
 

@@ -245,8 +245,7 @@ export default function Preview() {
               </div>
             </div>
           </section>
-
-          <section className="grid-container usa-section">
+          <section className="grid-container usa-section bg-accent-cool-lighter">
             <div className="grid-row grid-gap">
               <div className="tablet:grid-col-4">
                 <h2 className="font-heading-xl margin-top-0 tablet:margin-bottom-0">
@@ -270,97 +269,194 @@ export default function Preview() {
             </div>
           </section>
 
-          <section className="usa-graphic-list usa-section usa-section--dark">
-            <div className="grid-container">
-              <div className="usa-graphic-list__row grid-row grid-gap">
-                <div className="usa-media-block tablet:grid-col">
-                  <img
-                    className="usa-media-block__img"
-                    src="/img/circle-124.png"
-                    alt="Alt text"
+          <section className="grid-container usa-section">
+            <h2 className="font-heading-lg">Forms</h2>
+            <form className="usa-form usa-form">
+              <label className="usa-label" htmlFor="email">
+                Email address
+              </label>
+              <input
+                className="usa-input"
+                id="email"
+                name="email"
+                type="email"
+                required
+              />
+
+              <fieldset className="usa-fieldset usa-form-group">
+                <legend className="usa-legend">
+                  Select one historical figure
+                </legend>
+                <div className="usa-radio">
+                  <input
+                    className="usa-radio__input usa-radio__input--tile"
+                    id="historical-truth-2"
+                    type="radio"
+                    name="historical-figures-2"
+                    value="sojourner-truth"
+                    defaultChecked
                   />
-                  <div className="usa-media-block__body">
-                    <h2 className="usa-graphic-list__heading">
-                      Graphic headings can vary.
-                    </h2>
-                    <p>
-                      Graphic headings can be used a few different ways,
-                      depending on what your landing page is for. Highlight your
-                      values, specific program areas, or results.
-                    </p>
-                  </div>
+                  <label
+                    className="usa-radio__label"
+                    htmlFor="historical-truth-2"
+                  >
+                    Sojourner Truth
+                  </label>
                 </div>
-                <div className="usa-media-block tablet:grid-col">
-                  <img
-                    className="usa-media-block__img"
-                    src="/img/circle-124.png"
-                    alt="Alt text"
+                <div className="usa-radio">
+                  <input
+                    className="usa-radio__input usa-radio__input--tile"
+                    id="historical-douglass-2"
+                    type="radio"
+                    name="historical-figures-2"
+                    value="frederick-douglass"
+                    defaultChecked={false}
                   />
-                  <div className="usa-media-block__body">
-                    <h2 className="usa-graphic-list__heading">
-                      Stick to 6 or fewer words.
-                    </h2>
-                    <p>
-                      Keep body text to about 30 words. They can be shorter, but
-                      try to be somewhat balanced across all four. It creates a
-                      clean appearance with good spacing.
-                    </p>
-                  </div>
+                  <label
+                    className="usa-radio__label"
+                    htmlFor="historical-douglass-2"
+                  >
+                    Frederick Douglass{" "}
+                    <span className="usa-checkbox__label-description">
+                      This is optional text that can be used to describe the
+                      label in more detail.
+                    </span>
+                  </label>
                 </div>
-              </div>
-              <div className="usa-graphic-list__row grid-row grid-gap">
-                <div className="usa-media-block tablet:grid-col">
-                  <img
-                    className="usa-media-block__img"
-                    src="/img/circle-124.png"
-                    alt="Alt text"
+                <div className="usa-radio">
+                  <input
+                    className="usa-radio__input usa-radio__input--tile"
+                    id="historical-washington-2"
+                    type="radio"
+                    name="historical-figures-2"
+                    value="booker-t-washington"
+                    defaultChecked={false}
                   />
-                  <div className="usa-media-block__body">
-                    <h2 className="usa-graphic-list__heading">
-                      Never highlight anything without a goal.
-                    </h2>
-                    <p>
-                      For anything you want to highlight here, understand what
-                      your users know now, and what activity or impression you
-                      want from them after they see it.
-                    </p>
-                  </div>
+                  <label
+                    className="usa-radio__label"
+                    htmlFor="historical-washington-2"
+                  >
+                    Booker T. Washington
+                  </label>
                 </div>
-                <div className="usa-media-block tablet:grid-col">
-                  <img
-                    className="usa-media-block__img"
-                    src="/img/circle-124.png"
-                    alt="Alt text"
+                <div className="usa-radio">
+                  <input
+                    className="usa-radio__input usa-radio__input--tile"
+                    id="historical-marshall-2"
+                    type="radio"
+                    name="historical-figures"
+                    value="thurgood-marshall"
+                    disabled
                   />
-                  <div className="usa-media-block__body">
-                    <h2 className="usa-graphic-list__heading">
-                      Could also have 2 or 6.
-                    </h2>
-                    <p>
-                      In addition to your goal, find out your users’ goals. What
-                      do they want to know or do that supports your mission? Use
-                      these headings to show those.
-                    </p>
-                  </div>
+                  <label
+                    className="usa-radio__label"
+                    htmlFor="historical-marshall-2"
+                  >
+                    Thurgood Marshall
+                  </label>
                 </div>
-              </div>
-            </div>
+              </fieldset>
+              <ul className="usa-button-group">
+                <li className="usa-button-group__item">
+                  <button className="usa-button usa-button--outline">
+                    Back
+                  </button>
+                </li>
+                <li className="usa-button-group__item">
+                  <input
+                    className="usa-button"
+                    type="submit"
+                    value="Continue"
+                  />
+                </li>
+              </ul>
+            </form>
           </section>
 
           <section id="test-section-id" className="usa-section">
             <div className="grid-container">
-              <h2 className="font-heading-xl margin-y-0">Section heading</h2>
-              <p className="usa-intro">
-                Everything up to this point should help people understand your
-                agency or project: who you are, your goal or mission, and how
-                you approach it. Use this section to encourage them to act.
-                Describe why they should get in touch here, and use an active
-                verb on the button below. “Get in touch,” “Learn more,” and so
-                on.
-              </p>
-              <a className="usa-button usa-button--big" href="#;">
-                Call to action
-              </a>
+              <article className="usa-prose">
+                <h2 id="section-heading-h2">Section heading (h2)</h2>
+
+                <p>
+                  These headings introduce, respectively, sections and
+                  subsections within your body copy. As you create these
+                  headings, follow the same guidelines that you use when writing
+                  section headings: Be succinct, descriptive, and precise.
+                </p>
+
+                <h3 id="section-heading-h3">Subsection heading (h3)</h3>
+
+                <p>
+                  The particulars of your body copy will be determined by the
+                  topic of your page. Regardless of topic, it’s a good practice
+                  to follow the inverted pyramid structure when writing copy:
+                  Begin with the information that’s most important to your users
+                  and then present information of less importance.
+                </p>
+
+                <p>
+                  Keep each section and subsection focused — a good approach is
+                  to include one theme (topic) per section.
+                </p>
+
+                <h4 id="section-heading-h4">Subsection heading (h4)</h4>
+
+                <p>
+                  Use the side navigation menu to help your users quickly skip
+                  to different sections of your page. The menu is best suited to
+                  displaying a hierarchy with one to three levels and, as we
+                  mentioned, to display the sub-navigation of a given page.
+                </p>
+
+                <p>
+                  Read the full documentation on our side navigation on the
+                  component page.
+                </p>
+                <a className="usa-button usa-button--big" href="#;">
+                  Call to action
+                </a>
+              </article>
+
+              <div className="usa-alert usa-alert--success">
+                <div className="usa-alert__body">
+                  <h3 className="usa-alert__heading">Success status</h3>
+                  <p className="usa-alert__text">
+                    Lorem ipsum dolor sit amet,{" "}
+                    <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
+                  </p>
+                </div>
+              </div>
+
+              <div className="usa-alert usa-alert--warning">
+                <div className="usa-alert__body">
+                  <h3 className="usa-alert__heading">Warning status</h3>
+                  <p className="usa-alert__text">
+                    Lorem ipsum dolor sit amet,{" "}
+                    <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
+                  </p>
+                </div>
+              </div>
+
+              <div className="usa-alert usa-alert--error" role="alert">
+                <div className="usa-alert__body">
+                  <h3 className="usa-alert__heading">Error status</h3>
+                  <p className="usa-alert__text">
+                    Lorem ipsum dolor sit amet,{" "}
+                    <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
+                  </p>
+                </div>
+              </div>
+
+              <div className="usa-alert usa-alert--info">
+                <div className="usa-alert__body">
+                  <h3 className="usa-alert__heading">Informative status</h3>
+                  <p className="usa-alert__text">
+                    Lorem ipsum dolor sit amet,{" "}
+                    <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
         </main>

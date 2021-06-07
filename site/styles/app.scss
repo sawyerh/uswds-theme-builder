@@ -4,14 +4,14 @@ $theme-show-notifications: false;
 // Make fonts and images work in the site and preview iframe
 $theme-font-path: "/fonts";
 $theme-image-path: "/img";
-// Make utility classes behave as expected
+
+// Expand coverage of utilities. These variables should
+// match (or be a subset of) what's used in the Sass used in the Preview
 $utilities-use-important: true;
+$background-color-palettes: ("palette-color-state");
 
 // Theme editor site settings
 $theme-font-type-sans: "public-sans";
-
-// We need this so that we can identify the default colors for error, success, etc
-$background-color-palettes: ("palette-color-state");
 
 @import "uswds";
 @import "codemirror/lib/codemirror.css";

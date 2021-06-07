@@ -77,6 +77,8 @@ Future<String> createSassContents(Request request) async {
   /* Don't let the theme site's utilities override the previews */
   \$utilities-use-important: true;
 
+  \$background-color-palettes: ("palette-color-state");
+
   /*
     Custom Sass variables passed in through the request
   */

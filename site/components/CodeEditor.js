@@ -26,7 +26,7 @@ const CodeEditor = () => {
       {isExpanded ? (
         <div className={classNames("font-mono-md")}>
           <CodeMirror
-            value="<h1>I ♥ react-codemirror2</h1>"
+            value="<h1>Feature coming soon. Sign up to learn when it's available: https://forms.gle/adA3KkTjxqHcsH5S8</h1>"
             options={{
               mode: "xml",
               theme: "vibrant-ink",

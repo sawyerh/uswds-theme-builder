@@ -13,6 +13,7 @@ import IconButton from "../components/IconButton";
 import classnames from "classnames";
 import useTokensManager from "../hooks/useTokensManager";
 import CodeEditor from "../components/CodeEditor";
+import Head from "next/head";
 
 if (typeof window !== "undefined") {
   require("codemirror/mode/xml/xml");
@@ -47,6 +48,15 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        {process.env.NODE_ENV !== "development" ? (
+          <script
+            src="https://cdn.usefathom.com/script.js"
+            data-site="VSKIJXFW"
+            defer
+          ></script>
+        ) : null}
+      </Head>
       <div className="grid-row">
         <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">
           <div className="text-white font-body-3xs padding-2 bg-secondary-darker">

@@ -11,6 +11,14 @@ Prerequisites:
 - Dart or Docker Desktop
 
 ```
+npm install
+```
+
+```
+dart pub get
+```
+
+```
 dart run bin/server.dart
 ```
 

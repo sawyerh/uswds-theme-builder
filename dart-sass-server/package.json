@@ -6,6 +6,6 @@
     "postinstall": "./scripts/postinstall-uswds.sh"
   },
   "dependencies": {
-    "uswds": "^2.11.2"
+    "uswds": "^2.12.0"
   }
 }

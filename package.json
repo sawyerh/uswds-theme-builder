@@ -2,8 +2,6 @@
   "name": "uswds-theme-builder-root",
   "private": true,
   "scripts": {
-    "deploy": "./scripts/deploy.sh",
-    "setup": "./scripts/setup.sh",
     "lint": "eslint --ext .js ./ --fix",
     "prettier": "prettier --write '**/*.{js,json,md,mdx,scss,yaml,yml}'"
   },

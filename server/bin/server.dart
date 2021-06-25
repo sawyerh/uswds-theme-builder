@@ -27,7 +27,8 @@ Future main() async {
 
 Response _setDefaultHeaders(Response response) {
   final corsHeaders = {
-    'Access-Control-Allow-Origin': 'https://uswds-theme-builder.web.app',
+    'Access-Control-Allow-Origin':
+        Platform.environment['ORIGIN'] ?? 'https://uswds-theme-builder.web.app',
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     'Access-Control-Max-Age': '300',
     'Vary': 'Origin'

@@ -1,8 +1,9 @@
 {
-  "name": "dart-sass-server",
+  "name": "server",
   "private": true,
   "scripts": {
     "deploy": "gcloud beta run deploy dart-sass-compiler --source .",
+    "deploy:dev": "gcloud beta run deploy dart-sass-compiler-dev --source .",
     "postinstall": "./scripts/postinstall-uswds.sh"
   },
   "dependencies": {

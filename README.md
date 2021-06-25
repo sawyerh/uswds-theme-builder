@@ -5,7 +5,7 @@
 ## Repo structure
 
 ```
-├── dart-sass-server ⚡️ Dart Sass compilation server
+├── server ⚡️ Dart Sass compilation server
 └── site             🎨 Frontend
 ```
 

@@ -1,14 +1,15 @@
 # Dart Sass Server
 
-Simple Dockerized web server for compiling a themed Sass file, written in [Dart](https://dart.dev/).
-
-Send a `POST` request to `/compile`. Accepts a JSON body where the key/value pairs are Sass variable name/value.
+Web server for compiling a themed Sass file, written in [Dart](https://dart.dev/).
 
 ## Local development
 
 Prerequisites:
 
 - Dart or Docker Desktop
+- NPM v7+
+
+**Install dependencies:**
 
 ```
 npm install
@@ -18,9 +19,15 @@ npm install
 dart pub get
 ```
 
+**Run the server:**
+
 ```
-dart run bin/server.dart
+npm run dev
 ```
+
+**Usage**:
+
+Send a `POST` request to `/compile`. Accepts a JSON body where the key/value pairs are Sass variable name/value.
 
 ## Deploy
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import classnames from "classnames";
 import dynamic from "next/dynamic";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -9,8 +8,6 @@ import { useDebouncedCallback } from "use-debounce";
 const ScriptsForUSWDS = dynamic(() => import("../components/ScriptsForUSWDS"), {
   ssr: false,
 });
-
-const compileEndpoint = `https://dart-sass-compiler-sx3jbfg55a-uc.a.run.app/compile`;
 
 export default function Preview() {
   const [styles, setStyles] = useState("");
@@ -33,7 +30,7 @@ export default function Preview() {
     setPreviewError(null);
 
     try {
-      const response = await fetch(compileEndpoint, {
+      const response = await fetch(process.env.NEXT_PUBLIC_SASS_SERVER, {
         body: JSON.stringify({ ...tokensCache }),
         method: "POST",
         mode: "cors",

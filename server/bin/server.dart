@@ -8,6 +8,19 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 Future main() async {
   // https://cloud.google.com/run/docs/reference/container-contract#port
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
+  final origin =
+      Platform.environment['ORIGIN'] ?? 'https://uswds-theme-builder.web.app';
+
+  Response _setDefaultHeaders(Response response) {
+    final corsHeaders = {
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Max-Age': '300',
+      'Vary': 'Origin'
+    };
+
+    return response.change(headers: corsHeaders);
+  }
 
   final pipeline = Pipeline()
       .addMiddleware(logRequests())
@@ -22,19 +35,8 @@ Future main() async {
 
   server.autoCompress = true;
 
-  print('Serving at http://${server.address.host}:${server.port}');
-}
-
-Response _setDefaultHeaders(Response response) {
-  final corsHeaders = {
-    'Access-Control-Allow-Origin':
-        Platform.environment['ORIGIN'] ?? 'https://uswds-theme-builder.web.app',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-    'Access-Control-Max-Age': '300',
-    'Vary': 'Origin'
-  };
-
-  return response.change(headers: corsHeaders);
+  print(
+      'Serving at http://${server.address.host}:${server.port} for ${origin}');
 }
 
 Future<Response> _requestHandler(Request request) async {

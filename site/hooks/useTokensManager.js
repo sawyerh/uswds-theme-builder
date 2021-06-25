@@ -80,7 +80,8 @@ function useTokensManager() {
     } else {
       url.searchParams.delete(queryParamName);
     }
-    router.push(url.href);
+
+    router.push(url.href, undefined, { scroll: false, shallow: true });
   };
 
   return {

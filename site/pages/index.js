@@ -96,7 +96,7 @@ export default function Home() {
           >
             <h2 className="text-white font-sans-lg margin-bottom-1 margin-top-0">
               <span className="display-inline-block text-middle margin-right-05 text-mint">
-                <Drop size={30} weight="bold" />
+                <Drop size={30} />
               </span>
               Colors
             </h2>
@@ -134,7 +134,7 @@ export default function Home() {
 
             <h2 className="text-white font-sans-lg  margin-bottom-0">
               <span className="display-inline-block text-middle margin-right-1 text-cyan">
-                <FrameCorners size={30} weight="bold" />
+                <FrameCorners size={30} />
               </span>
               Spacing
             </h2>
@@ -148,7 +148,7 @@ export default function Home() {
 
             <h2 className="text-white font-sans-lg  margin-bottom-0">
               <span className="display-inline-block text-middle margin-right-1 text-orange">
-                <PuzzlePiece size={30} weight="bold" />
+                <PuzzlePiece size={30} />
               </span>
               Components
             </h2>

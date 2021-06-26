@@ -109,7 +109,6 @@ export default function Preview(props) {
       <style>{styles}</style>
 
       <div
-        className="padding-05"
         key="template"
         dangerouslySetInnerHTML={{ __html: defaultTemplateHtml }}
       />

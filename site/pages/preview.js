@@ -16,7 +16,16 @@ export default function Preview(props) {
   const [tokensCache, setTokensCache] = useState({});
   const [previewError, setPreviewError] = useState();
   const [isLoading, setIsLoading] = useState();
+  const [uswdsKey, setUswdsKey] = useState(1);
   const abortControllerRef = useRef();
+
+  /**
+   * Increment a key to force the USWDS script to re-init anytime
+   * the DOM re-renders, otherwise things are funky.
+   */
+  useEffect(() => {
+    setUswdsKey((k) => k + 1);
+  }, [isLoading]);
 
   /**
    * Load USWDS styles for the preview
@@ -101,9 +110,10 @@ export default function Preview(props) {
 
       <div
         className="padding-05"
+        key="template"
         dangerouslySetInnerHTML={{ __html: defaultTemplateHtml }}
       />
-      <ScriptsForUSWDS />
+      <ScriptsForUSWDS key={uswdsKey} />
     </>
   );
 }

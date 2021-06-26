@@ -1,11 +1,100 @@
 <a class="usa-skipnav" href="#main-content"> Skip to main content </a>
+<section class="usa-banner" aria-label="Official government website">
+  <div class="usa-accordion">
+    <header class="usa-banner__header">
+      <div class="usa-banner__inner">
+        <div class="grid-col-auto">
+          <img
+            class="usa-banner__header-flag"
+            src="/img/us_flag_small.png"
+            alt="U.S. flag"
+          />
+        </div>
+        <div class="grid-col-fill tablet:grid-col-auto">
+          <p class="usa-banner__header-text">
+            An official website of the United States government
+          </p>
+          <p class="usa-banner__header-action" aria-hidden="true">
+            Here’s how you know
+          </p>
+        </div>
+        <button
+          class="usa-accordion__button usa-banner__button"
+          aria-expanded="false"
+          aria-controls="gov-banner"
+        >
+          <span class="usa-banner__button-text">Here’s how you know</span>
+        </button>
+      </div>
+    </header>
+    <div class="usa-banner__content usa-accordion__content" id="gov-banner">
+      <div class="grid-row grid-gap-lg">
+        <div class="usa-banner__guidance tablet:grid-col-6">
+          <img
+            class="usa-banner__icon usa-media-block__img"
+            src="/img/icon-dot-gov.svg"
+            role="img"
+            alt=""
+            aria-hidden="true"
+          />
+          <div class="usa-media-block__body">
+            <p>
+              <strong> Official websites use .gov </strong>
+              <br />
+              A <strong>.gov</strong> website belongs to an official government
+              organization in the United States.
+            </p>
+          </div>
+        </div>
+        <div class="usa-banner__guidance tablet:grid-col-6">
+          <img
+            class="usa-banner__icon usa-media-block__img"
+            src="/img/icon-https.svg"
+            role="img"
+            alt=""
+            aria-hidden="true"
+          />
+          <div class="usa-media-block__body">
+            <p>
+              <strong> Secure .gov websites use HTTPS </strong>
+              <br />
+              A <strong>lock</strong> (
+              <span class="icon-lock"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="52"
+                  height="64"
+                  viewBox="0 0 52 64"
+                  class="usa-banner__lock-image"
+                  role="img"
+                  aria-labelledby="banner-lock-title banner-lock-description"
+                  focusable="false"
+                >
+                  <title id="banner-lock-title">Lock</title>
+                  <desc id="banner-lock-description">A locked padlock</desc>
+                  <path
+                    fill="#000000"
+                    fill-rule="evenodd"
+                    d="M26 0c10.493 0 19 8.507 19 19v9h3a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4h3v-9C7 8.507 15.507 0 26 0zm0 8c-5.979 0-10.843 4.77-10.996 10.712L15 19v9h22v-9c0-6.075-4.925-11-11-11z"
+                  /></svg
+              ></span>
+              ) or <strong>https://</strong> means you’ve safely connected to
+              the .gov website. Share sensitive information only on official,
+              secure websites.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="usa-overlay"></div>
 <header class="usa-header usa-header--extended">
   <div class="usa-navbar">
-    <div class="usa-logo" id="extended-logo">
+    <div class="usa-logo" id="extended-mega-logo">
       <em class="usa-logo__text">
-        <a href="/" title="Home" aria-label="Home"> Site title </a>
+        <a href="javascript:void(0)" title="Project title"> Project title </a>
       </em>
     </div>
     <button class="usa-menu-btn">Menu</button>
@@ -13,71 +102,150 @@
   <nav aria-label="Primary navigation" class="usa-nav">
     <div class="usa-nav__inner">
       <button class="usa-nav__close">
-        <img src="/img/usa-icons/close.svg" role="img" alt="close" />
+        <img src="/img/usa-icons/close.svg" role="img" alt="Close" />
       </button>
       <ul class="usa-nav__primary usa-accordion">
         <li class="usa-nav__primary-item">
           <button
             class="usa-accordion__button usa-nav__link usa-current"
             aria-expanded="false"
-            aria-controls="extended-nav-section-one"
+            aria-controls="extended-mega-nav-section-one"
           >
-            <span>Current section</span>
+            <span>&lt;Current section&gt;</span>
           </button>
-          <ul id="extended-nav-section-one" class="usa-nav__submenu">
-            <li class="usa-nav__submenu-item">
-              <a href="#" class=""> Navigation link </a>
-            </li>
-            <li class="usa-nav__submenu-item">
-              <a href="#" class=""> Navigation link </a>
-            </li>
-            <li class="usa-nav__submenu-item">
-              <a href="#" class=""> Navigation link </a>
-            </li>
-          </ul>
+
+          <div
+            id="extended-mega-nav-section-one"
+            class="usa-nav__submenu usa-megamenu"
+          >
+            <div class="grid-row grid-gap-4">
+              <div class="usa-col">
+                <ul class="usa-nav__submenu-list">
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="usa-col">
+                <ul class="usa-nav__submenu-list">
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#">
+                      &lt;A very long navigation link that goes onto two
+                      lines&gt;
+                    </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="usa-col">
+                <ul class="usa-nav__submenu-list">
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </li>
         <li class="usa-nav__primary-item">
           <button
             class="usa-accordion__button usa-nav__link"
             aria-expanded="false"
-            aria-controls="extended-nav-section-two"
+            aria-controls="extended-mega-nav-section-two"
           >
-            <span>Section</span>
+            <span>&lt;Section&gt;</span>
           </button>
-          <ul id="extended-nav-section-two" class="usa-nav__submenu">
-            <li class="usa-nav__submenu-item">
-              <a href="#" class=""> Navigation link </a>
-            </li>
-            <li class="usa-nav__submenu-item">
-              <a href="#" class=""> Navigation link </a>
-            </li>
-            <li class="usa-nav__submenu-item">
-              <a href="#" class=""> Navigation link </a>
-            </li>
-          </ul>
+
+          <div
+            id="extended-mega-nav-section-two"
+            class="usa-nav__submenu usa-megamenu"
+          >
+            <div class="grid-row grid-gap-4">
+              <div class="usa-col">
+                <ul class="usa-nav__submenu-list">
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="usa-col">
+                <ul class="usa-nav__submenu-list">
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#">
+                      &lt;A very long navigation link that goes onto two
+                      lines&gt;
+                    </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="usa-col">
+                <ul class="usa-nav__submenu-list">
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                  <li class="usa-nav__submenu-item">
+                    <a href="#"> &lt;Navigation link&gt; </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </li>
         <li class="usa-nav__primary-item">
-          <a class="usa-nav__link" href="#">
-            <span>Simple link</span>
+          <a href="javascript:void(0)" class="usa-nav__link">
+            <span>&lt;Simple link&gt;</span>
           </a>
         </li>
       </ul>
       <div class="usa-nav__secondary">
         <ul class="usa-nav__secondary-links">
           <li class="usa-nav__secondary-item">
-            <a href="">Secondary link</a>
+            <a href="">&lt;Secondary link&gt;</a>
           </li>
           <li class="usa-nav__secondary-item">
-            <a href="">Another secondary link</a>
+            <a href="">&lt;Another secondary link&gt;</a>
           </li>
         </ul>
+
         <form class="usa-search usa-search--small" role="search">
-          <label class="usa-sr-only" for="extended-search-field-small">
-            Search small
+          <label class="usa-sr-only" for="extended-mega-search-field-en-small">
+            Search
           </label>
           <input
             class="usa-input"
-            id="extended-search-field-small"
+            id="extended-mega-search-field-en-small"
             type="search"
             name="search"
           />
@@ -91,47 +259,114 @@
 </header>
 
 <main id="main-content">
-  <section class="usa-hero bg-base-lightest" aria-label="Introduction">
-    <div class="grid-container">
-      <div class="usa-hero__callout">
-        <h1 class="usa-hero__heading">
-          <span class="usa-hero__heading--alt">Hero callout:</span>
-          Bring attention to a project priority
-        </h1>
-        <p>
-          Support the callout with some short explanatory text. You don’t need
-          more than a couple of sentences.
-        </p>
-        <a class="usa-button" href="#"> Call to action </a>
-      </div>
-    </div>
-  </section>
-  <section class="grid-container usa-section bg-accent-cool-lighter">
-    <div class="grid-row grid-gap">
-      <div class="tablet:grid-col-4">
-        <h2 class="font-heading-xl margin-top-0 tablet:margin-bottom-0">
-          A tagline highlights your approach
+  <section class="grid-container margin-top-6">
+    <h1 class="font-heading-xl">Theme preview</h1>
+
+    <div class="usa-step-indicator" aria-label="progress">
+      <ol class="usa-step-indicator__segments">
+        <li
+          class="
+            usa-step-indicator__segment usa-step-indicator__segment--complete
+          "
+        >
+          <span class="usa-step-indicator__segment-label"
+            >Personal information
+            <span class="usa-sr-only">completed</span></span
+          >
+        </li>
+        <li
+          class="
+            usa-step-indicator__segment usa-step-indicator__segment--complete
+          "
+        >
+          <span class="usa-step-indicator__segment-label"
+            >Household status <span class="usa-sr-only">completed</span></span
+          >
+        </li>
+        <li
+          class="
+            usa-step-indicator__segment usa-step-indicator__segment--current
+          "
+          aria-current="true"
+        >
+          <span class="usa-step-indicator__segment-label"
+            >Supporting documents
+          </span>
+        </li>
+        <li class="usa-step-indicator__segment">
+          <span class="usa-step-indicator__segment-label"
+            >Signature <span class="usa-sr-only">not completed</span></span
+          >
+        </li>
+        <li class="usa-step-indicator__segment">
+          <span class="usa-step-indicator__segment-label"
+            >Review and submit
+            <span class="usa-sr-only">not completed</span></span
+          >
+        </li>
+      </ol>
+      <div class="usa-step-indicator__header">
+        <h2 class="usa-step-indicator__heading">
+          <span class="usa-step-indicator__heading-counter">
+            <span class="usa-sr-only">Step</span>
+            <span class="usa-step-indicator__current-step">3</span>
+            <span class="usa-step-indicator__total-steps">of 5</span>
+          </span>
+          <span class="usa-step-indicator__heading-text"
+            >Supporting documents</span
+          >
         </h2>
       </div>
-      <div class="tablet:grid-col-8 usa-prose">
-        <p>
-          The tagline should inspire confidence and interest, focusing on the
-          value that your overall approach offers to your audience. Use a
-          heading typeface and keep your tagline to just a few words, and don’t
-          confuse or mystify.
-        </p>
-        <p>
-          Use the right side of the grid to explain the tagline a bit more. What
-          are your goals? How do you do your work? Write in the present tense,
-          and stay brief here. People who are interested can find details on
-          internal pages.
-        </p>
+    </div>
+
+    <div
+      class="usa-summary-box"
+      role="region"
+      aria-labelledby="summary-box-key-information"
+    >
+      <div class="usa-summary-box__body">
+        <h3 class="usa-summary-box__heading" id="summary-box-key-information">
+          Key information
+        </h3>
+        <div class="usa-summary-box__text">
+          <ul class="usa-list">
+            <li>
+              If you are under a winter storm warning,
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >find shelter</a
+              >
+              right away.
+            </li>
+            <li>
+              Sign up for
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >your community’s warning system</a
+              >.
+            </li>
+            <li>
+              Learn the signs of, and basic treatments for,
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >frostbite</a
+              >
+              and
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >hypothermia</a
+              >.
+            </li>
+            <li>
+              Gather emergency supplies for your
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >home</a
+              >
+              and your
+              <a class="usa-summary-box__link" href="javascript:void(0);">car</a
+              >.
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </section>
 
-  <section class="grid-container usa-section">
-    <h2 class="font-heading-lg">Forms</h2>
     <form class="usa-form usa-form">
       <label class="usa-label" for="email"> Email address </label>
       <input class="usa-input" id="email" name="email" type="email" required />
@@ -192,6 +427,38 @@
           </label>
         </div>
       </fieldset>
+
+      <div class="usa-form-group">
+        <label
+          class="usa-label"
+          id="appointment-date-label"
+          for="appointment-date"
+          >Appointment date</label
+        >
+        <div class="usa-hint" id="appointment-date-hint">mm/dd/yyyy</div>
+        <div class="usa-date-picker">
+          <input
+            class="usa-input"
+            id="appointment-date"
+            name="appointment-date"
+            type="text"
+            aria-describedby="appointment-date-label appointment-date-hint"
+          />
+        </div>
+      </div>
+
+      <div class="usa-form-group">
+        <label class="usa-label" for="file-input-single"
+          >Input accepts a single file</label
+        >
+        <input
+          id="file-input-single"
+          class="usa-file-input"
+          type="file"
+          name="file-input-single"
+        />
+      </div>
+
       <ul class="usa-button-group">
         <li class="usa-button-group__item">
           <button type="button" class="usa-button usa-button--outline">
@@ -203,90 +470,281 @@
         </li>
       </ul>
     </form>
-  </section>
 
-  <section id="test-section-id" class="usa-section">
-    <div class="grid-container">
-      <article class="usa-prose">
-        <h2 id="section-heading-h2">Section heading (h2)</h2>
+    <h2 class="font-heading-lg margin-top-6">Alerts</h2>
 
-        <p>
-          These headings introduce, respectively, sections and subsections
-          within your body copy. As you create these headings, follow the same
-          guidelines that you use when writing section headings: Be succinct,
-          descriptive, and precise.
+    <div class="usa-alert usa-alert--success">
+      <div class="usa-alert__body">
+        <h3 class="usa-alert__heading">Success status</h3>
+        <p class="usa-alert__text">
+          Lorem ipsum dolor sit amet,
+          <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
         </p>
-
-        <h3 id="section-heading-h3">Subsection heading (h3)</h3>
-
-        <p>
-          The particulars of your body copy will be determined by the topic of
-          your page. Regardless of topic, it’s a good practice to follow the
-          inverted pyramid structure when writing copy: Begin with the
-          information that’s most important to your users and then present
-          information of less importance.
-        </p>
-
-        <p>
-          Keep each section and subsection focused — a good approach is to
-          include one theme (topic) per section.
-        </p>
-
-        <h4 id="section-heading-h4">Subsection heading (h4)</h4>
-
-        <p>
-          Use the side navigation menu to help your users quickly skip to
-          different sections of your page. The menu is best suited to displaying
-          a hierarchy with one to three levels and, as we mentioned, to display
-          the sub-navigation of a given page.
-        </p>
-
-        <p>
-          Read the full documentation on our side navigation on the component
-          page.
-        </p>
-        <a class="usa-button usa-button--big" href="#"> Call to action </a>
-      </article>
-
-      <div class="usa-alert usa-alert--success">
-        <div class="usa-alert__body">
-          <h3 class="usa-alert__heading">Success status</h3>
-          <p class="usa-alert__text">
-            Lorem ipsum dolor sit amet,
-            <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
-          </p>
-        </div>
       </div>
+    </div>
 
-      <div class="usa-alert usa-alert--warning">
-        <div class="usa-alert__body">
-          <h3 class="usa-alert__heading">Warning status</h3>
-          <p class="usa-alert__text">
-            Lorem ipsum dolor sit amet,
-            <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
-          </p>
-        </div>
+    <div class="usa-alert usa-alert--warning">
+      <div class="usa-alert__body">
+        <h3 class="usa-alert__heading">Warning status</h3>
+        <p class="usa-alert__text">
+          Lorem ipsum dolor sit amet,
+          <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
+        </p>
       </div>
+    </div>
 
-      <div class="usa-alert usa-alert--error" role="alert">
-        <div class="usa-alert__body">
-          <h3 class="usa-alert__heading">Error status</h3>
-          <p class="usa-alert__text">
-            Lorem ipsum dolor sit amet,
-            <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
-          </p>
-        </div>
+    <div class="usa-alert usa-alert--error" role="alert">
+      <div class="usa-alert__body">
+        <h3 class="usa-alert__heading">Error status</h3>
+        <p class="usa-alert__text">
+          Lorem ipsum dolor sit amet,
+          <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
+        </p>
       </div>
+    </div>
 
-      <div class="usa-alert usa-alert--info">
-        <div class="usa-alert__body">
-          <h3 class="usa-alert__heading">Informative status</h3>
-          <p class="usa-alert__text">
-            Lorem ipsum dolor sit amet,
-            <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
-          </p>
-        </div>
+    <div class="usa-alert usa-alert--info">
+      <div class="usa-alert__body">
+        <h3 class="usa-alert__heading">Informative status</h3>
+        <p class="usa-alert__text">
+          Lorem ipsum dolor sit amet,
+          <a href="#">consectetur adipiscing</a> elit, sed do eiusmod.
+        </p>
       </div>
+    </div>
+
+    <h2 class="font-heading-lg margin-top-6">Process list</h2>
+
+    <ol class="usa-process-list">
+      <li class="usa-process-list__item">
+        <h4 class="usa-process-list__heading">Start a process</h4>
+        <p class="margin-top-05">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi
+          commodo, ipsum sed pharetra gravida, orci magna rhoncus neque.
+        </p>
+        <ul>
+          <li>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi
+            commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id
+            pulvinar odio lorem non turpis.
+          </li>
+          <li>
+            Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat
+            condimentum.
+          </li>
+          <li>Aliquam erat volutpat. Sed quis velit.</li>
+        </ul>
+      </li>
+      <li class="usa-process-list__item">
+        <h4 class="usa-process-list__heading">Proceed to the second step</h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi
+          commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id
+          pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id
+          velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed
+          quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere
+          sapien.
+        </p>
+      </li>
+      <li class="usa-process-list__item">
+        <h4 class="usa-process-list__heading">
+          Complete the step-by-step process
+        </h4>
+        <p>
+          Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat
+          condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi.
+          Nulla libero. Vivamus pharetra posuere sapien.
+        </p>
+      </li>
+    </ol>
+
+    <div class="usa-table-container--scrollable">
+      <table class="usa-table">
+        <caption>
+          Recently admitted US states (sortable table example)
+        </caption>
+        <thead>
+          <tr>
+            <th data-sortable scope="col" role="columnheader">Name</th>
+            <th
+              data-sortable
+              scope="col"
+              role="columnheader"
+              aria-sort="descending"
+            >
+              Order admitted to union
+            </th>
+            <th data-sortable scope="col" role="columnheader">
+              Date of ratification vote
+            </th>
+            <th data-sortable scope="col" role="columnheader">
+              Date admitted to union
+            </th>
+            <th data-sortable scope="col" role="columnheader">
+              Percent of voters in favor of ratification
+            </th>
+            <th data-sortable scope="col" role="columnheader">
+              Votes cast in favor of ratification
+            </th>
+            <th data-sortable scope="col" role="columnheader">
+              Estimated population at time of admission
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" role="rowheader">Hawaii</th>
+            <td data-sort-value="50">50th</td>
+            <td data-sort-value="331844400">Jun. 27, 1959</td>
+            <td data-sort-value="327092400">Aug. 21, 1959</td>
+            <td
+              data-sort-value="0.943"
+              class="font-mono-sm text-tabular text-right"
+            >
+              94.3%
+            </td>
+            <td
+              data-sort-value="132773"
+              class="font-mono-sm text-tabular text-right"
+            >
+              132,773
+            </td>
+            <td
+              data-sort-value="632772"
+              class="font-mono-sm text-tabular text-right"
+            >
+              632,772
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" role="rowheader">Alaska</th>
+            <td data-sort-value="49">49th</td>
+            <td data-sort-value="431978400">Apr. 24, 1956</td>
+            <td data-sort-value="346960800">Jan. 3, 1959</td>
+            <td
+              data-sort-value="0.681"
+              class="font-mono-sm text-tabular text-right"
+            >
+              68.1%
+            </td>
+            <td
+              data-sort-value="17477"
+              class="font-mono-sm text-tabular text-right"
+            >
+              17,477
+            </td>
+            <td
+              data-sort-value="226167"
+              class="font-mono-sm text-tabular text-right"
+            >
+              226,167
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" role="rowheader">Arizona</th>
+            <td data-sort-value="48">48th</td>
+            <td data-sort-value="1858528800">Feb. 9, 1911</td>
+            <td data-sort-value="1826560800">Feb. 14, 1912</td>
+            <td
+              data-sort-value="0.787"
+              class="font-mono-sm text-tabular text-right"
+            >
+              78.7%
+            </td>
+            <td
+              data-sort-value="12187"
+              class="font-mono-sm text-tabular text-right"
+            >
+              12,187
+            </td>
+            <td
+              data-sort-value="204354"
+              class="font-mono-sm text-tabular text-right"
+            >
+              204,354
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" role="rowheader">New Mexico</th>
+            <td data-sort-value="47">47th</td>
+            <td data-sort-value="1835287200">Nov. 5, 1911</td>
+            <td data-sort-value="1829930400">Jan. 6, 1912</td>
+            <td
+              data-sort-value="0.703"
+              class="font-mono-sm text-tabular text-right"
+            >
+              70.3%
+            </td>
+            <td
+              data-sort-value="31742"
+              class="font-mono-sm text-tabular text-right"
+            >
+              31,742
+            </td>
+            <td
+              data-sort-value="327301"
+              class="font-mono-sm text-tabular text-right"
+            >
+              327,301
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" role="rowheader">Oklahoma</th>
+            <td data-sort-value="46">46th</td>
+            <td data-sort-value="1965751200">Sep. 17, 1907</td>
+            <td data-sort-value="1960567200">Nov. 16, 1907</td>
+            <td
+              data-sort-value="0.712"
+              class="font-mono-sm text-tabular text-right"
+            >
+              71.2%
+            </td>
+            <td
+              data-sort-value="180333"
+              class="font-mono-sm text-tabular text-right"
+            >
+              180,333
+            </td>
+            <td
+              data-sort-value="1657155"
+              class="font-mono-sm text-tabular text-right"
+            >
+              1,657,155
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" role="rowheader">Utah</th>
+            <td data-sort-value="45">45th</td>
+            <td data-sort-value="2340122400">Nov. 5, 1895</td>
+            <td data-sort-value="2334938400">Jan. 4, 1896</td>
+            <td
+              data-sort-value="0.805"
+              class="font-mono-sm text-tabular text-right"
+            >
+              80.5%
+            </td>
+            <td
+              data-sort-value="31305"
+              class="font-mono-sm text-tabular text-right"
+            >
+              31,305
+            </td>
+            <td
+              data-sort-value="210779"
+              class="font-mono-sm text-tabular text-right"
+            >
+              210,779
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="usa-sr-only usa-table__announcement-region"
+        aria-live="polite"
+      >
+        <!-- this content will change when sort changes -->
+      </div>
+      <p class="margin-bottom-3">Data for illustration purposes only.</p>
     </div>
   </section>
 </main>

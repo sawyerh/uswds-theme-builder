@@ -3,7 +3,7 @@ export default function Header() {
     <>
       <header className="text-white padding-2 border-bottom-1px border-base grid-row">
         <div className="grid-col flex-align-self-center">
-          <h1 className="font-body-md margin-top-0 margin-bottom-1">
+          <h1 className="font-body-2xs margin-top-0 margin-bottom-05">
             USWDS Theme Builder
           </h1>
           <span className="usa-tag bg-secondary-dark">Beta</span>

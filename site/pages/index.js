@@ -38,7 +38,7 @@ const navButtons = [
 export default function Home() {
   const previewIframeRef = useRef();
   const tokensManager = useTokensManager();
-  const [activeNavButton, setActiveNavButton] = useState(navButtons[0]);
+  const [activeNavButton] = useState(navButtons[0]);
 
   /**
    * Send tokens into our Preview iFrame when they change

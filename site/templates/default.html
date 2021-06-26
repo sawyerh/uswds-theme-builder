@@ -230,143 +230,108 @@
       </div>
     </div>
 
-    <div
-      class="usa-summary-box"
-      role="region"
-      aria-labelledby="summary-box-key-information"
-    >
-      <div class="usa-summary-box__body">
-        <h3 class="usa-summary-box__heading" id="summary-box-key-information">
-          Key information
-        </h3>
-        <div class="usa-summary-box__text">
-          <ul class="usa-list">
-            <li>
-              If you are under a winter storm warning,
-              <a class="usa-summary-box__link" href="javascript:void(0);"
-                >find shelter</a
-              >
-              right away.
-            </li>
-            <li>
-              Sign up for
-              <a class="usa-summary-box__link" href="javascript:void(0);"
-                >your community’s warning system</a
-              >.
-            </li>
-            <li>
-              Learn the signs of, and basic treatments for,
-              <a class="usa-summary-box__link" href="javascript:void(0);"
-                >frostbite</a
-              >
-              and
-              <a class="usa-summary-box__link" href="javascript:void(0);"
-                >hypothermia</a
-              >.
-            </li>
-            <li>
-              Gather emergency supplies for your
-              <a class="usa-summary-box__link" href="javascript:void(0);"
-                >home</a
-              >
-              and your
-              <a class="usa-summary-box__link" href="javascript:void(0);">car</a
-              >.
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <form class="usa-form usa-form">
-      <label class="usa-label" for="email"> Email address </label>
-      <input class="usa-input" id="email" name="email" type="email" required />
+    <form class="usa-form usa-form usa-form--large">
+      <label class="usa-label" for="full_name">Name</label>
+      <input class="usa-input" id="full_name" name="full_name" type="text" />
 
       <fieldset class="usa-fieldset usa-form-group">
-        <legend class="usa-legend">Select one historical figure</legend>
+        <legend class="usa-legend">Document type</legend>
         <div class="usa-radio">
           <input
             class="usa-radio__input usa-radio__input--tile"
-            id="historical-truth-2"
+            id="doc-type-1"
             type="radio"
-            name="historical-figures-2"
-            value="sojourner-truth"
+            name="doc-type"
+            value="Driver's License"
+            checked
           />
-          <label class="usa-radio__label" for="historical-truth-2">
-            Sojourner Truth
+          <label class="usa-radio__label" for="doc-type-1">
+            Driver's License
           </label>
         </div>
         <div class="usa-radio">
           <input
             class="usa-radio__input usa-radio__input--tile"
-            id="historical-douglass-2"
+            id="doc-type-3"
             type="radio"
-            name="historical-figures-2"
-            value="frederick-douglass"
+            name="doc-type"
+            value="State ID"
           />
-          <label class="usa-radio__label" for="historical-douglass-2">
-            Frederick Douglass
+          <label class="usa-radio__label" for="doc-type-3"> State ID </label>
+        </div>
+        <div class="usa-radio">
+          <input
+            class="usa-radio__input usa-radio__input--tile"
+            id="doc-type-2"
+            type="radio"
+            name="doc-type"
+            value="Passport"
+          />
+          <label class="usa-radio__label" for="doc-type-2"
+            >Passport
             <span class="usa-checkbox__label-description">
-              This is optional text that can be used to describe the label in
-              more detail.
+              This is optional text that can be used to describe the label
+              in&nbsp;more&nbsp;detail.
             </span>
           </label>
         </div>
         <div class="usa-radio">
           <input
             class="usa-radio__input usa-radio__input--tile"
-            id="historical-washington-2"
+            id="doc-type-4"
             type="radio"
-            name="historical-figures-2"
-            value="booker-t-washington"
-          />
-          <label class="usa-radio__label" for="historical-washington-2">
-            Booker T. Washington
-          </label>
-        </div>
-        <div class="usa-radio">
-          <input
-            class="usa-radio__input usa-radio__input--tile"
-            id="historical-marshall-2"
-            type="radio"
-            name="historical-figures"
-            value="thurgood-marshall"
+            name="doc-type"
+            value="USWDS Certification"
             disabled
           />
-          <label class="usa-radio__label" for="historical-marshall-2">
-            Thurgood Marshall
+          <label class="usa-radio__label" for="doc-type-4">
+            USWDS Certification
           </label>
         </div>
       </fieldset>
 
       <div class="usa-form-group">
-        <label
-          class="usa-label"
-          id="appointment-date-label"
-          for="appointment-date"
-          >Appointment date</label
+        <label class="usa-label" id="date-label" for="date"
+          >Expiration date</label
         >
-        <div class="usa-hint" id="appointment-date-hint">mm/dd/yyyy</div>
+        <div class="usa-hint" id="date-hint">mm/dd/yyyy</div>
         <div class="usa-date-picker">
           <input
             class="usa-input"
-            id="appointment-date"
-            name="appointment-date"
+            id="date"
+            name="date"
             type="text"
-            aria-describedby="appointment-date-label appointment-date-hint"
+            aria-describedby="date-label date-hint"
           />
         </div>
       </div>
 
       <div class="usa-form-group">
         <label class="usa-label" for="file-input-single"
-          >Input accepts a single file</label
+          >Select your documents</label
         >
         <input
           id="file-input-single"
           class="usa-file-input"
           type="file"
           name="file-input-single"
+          multiple
+        />
+      </div>
+
+      <div class="usa-form-group usa-form-group--error">
+        <label class="usa-label usa-label--error" for="input-error"
+          >Department</label
+        >
+        <span class="usa-error-message" id="input-error-message"
+          >Helpful error message goes here.</span
+        >
+        <input
+          class="usa-input usa-input--error"
+          id="input-error"
+          name="input-error"
+          type="text"
+          aria-describedby="input-error-message"
         />
       </div>
 
@@ -430,6 +395,54 @@
       adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna
       rhoncus neque.
     </p>
+
+    <div
+      class="usa-summary-box margin-bottom-2"
+      role="region"
+      aria-labelledby="summary-box-key-information"
+    >
+      <div class="usa-summary-box__body">
+        <h3 class="usa-summary-box__heading" id="summary-box-key-information">
+          Key information
+        </h3>
+        <div class="usa-summary-box__text">
+          <ul class="usa-list">
+            <li>
+              If you are under a winter storm warning,
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >find shelter</a
+              >
+              right away.
+            </li>
+            <li>
+              Sign up for
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >your community’s warning system</a
+              >.
+            </li>
+            <li>
+              Learn the signs of, and basic treatments for,
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >frostbite</a
+              >
+              and
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >hypothermia</a
+              >.
+            </li>
+            <li>
+              Gather emergency supplies for your
+              <a class="usa-summary-box__link" href="javascript:void(0);"
+                >home</a
+              >
+              and your
+              <a class="usa-summary-box__link" href="javascript:void(0);">car</a
+              >.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
     <ol class="usa-process-list">
       <li class="usa-process-list__item">

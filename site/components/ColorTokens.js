@@ -32,27 +32,55 @@ Object.keys(tokensData.colors).forEach((sassVariableName) => {
   });
 });
 
-const ColorTokens = (props) => {
+const ColorTokens = ({ tokensManager }) => {
   return (
     <Accordion>
       {Object.entries(visibleVariablePrefixes).map(
         ([variablePrefix, sassVariables]) => (
-          <AccordionItem
+          <ColorFamilyTokens
             key={variablePrefix}
-            heading={variablePrefix.replace("$theme-color-", "")}
-          >
-            {sassVariables.map((sassVariableName) => (
-              <InputColor
-                key={sassVariableName}
-                sassVariableName={sassVariableName}
-                tokensManager={props.tokensManager}
-                variablePrefix={variablePrefix}
-              />
-            ))}
-          </AccordionItem>
+            sassVariables={sassVariables}
+            tokensManager={tokensManager}
+            variablePrefix={variablePrefix}
+          />
         )
       )}
     </Accordion>
+  );
+};
+
+const ColorFamilyTokens = ({
+  variablePrefix,
+  sassVariables,
+  tokensManager,
+}) => {
+  const middleColor = tokensManager.getTokenValue(variablePrefix);
+
+  const heading = (
+    <>
+      {middleColor ? (
+        <span
+          className="circle-2 display-inline-block margin-right-1 text-middle"
+          style={{ backgroundColor: middleColor }}
+        >
+          {}
+        </span>
+      ) : null}
+      {`${variablePrefix.replace("$theme-color-", "")}`}
+    </>
+  );
+
+  return (
+    <AccordionItem key={variablePrefix} heading={heading}>
+      {sassVariables.map((sassVariableName) => (
+        <InputColor
+          key={sassVariableName}
+          sassVariableName={sassVariableName}
+          tokensManager={tokensManager}
+          variablePrefix={variablePrefix}
+        />
+      ))}
+    </AccordionItem>
   );
 };
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { get } from "lodash";
 import lzString from "lz-string";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
@@ -11,8 +12,16 @@ import { useRouter } from "next/router";
 function useTokensManager() {
   const router = useRouter();
   const query = router.query;
-  const [tokens, setTokens] = useState({});
-  const [debouncedTokens] = useDebounce(tokens, 1000);
+  /**
+   * Custom theme variable values set by the user
+   */
+  const [customTokens, setCustomTokens] = useState({});
+  /**
+   * CSS values for theme variables set by USWDS as defaults
+   */
+  const [computedDefaultTokens, setComputedDefaultTokens] = useState({});
+
+  const [debouncedCustomTokens] = useDebounce(customTokens, 1000);
 
   /**
    * Parse and store the tokens from the URL query param
@@ -20,7 +29,7 @@ function useTokensManager() {
   useEffect(() => {
     if (!router.isReady) return;
     const tokensObject = parseTokensFromQuery();
-    setTokens(tokensObject);
+    setCustomTokens(tokensObject);
   }, [router.isReady]);
 
   /**
@@ -30,19 +39,41 @@ function useTokensManager() {
    */
   useEffect(() => {
     updateTokensQuery();
-  }, [debouncedTokens]);
+  }, [debouncedCustomTokens]);
 
-  const setToken = (name, value) => {
-    const updatedTokens = {
-      ...tokens,
-      [name]: value,
-    };
+  /**
+   * Read the value of a token, either set by the user or the computed value
+   * of the USWDS default
+   * @param {string} name - Theme variable name
+   * @returns {string}
+   */
+  const getTokenValue = (name) => {
+    const value = get(customTokens, name) || get(computedDefaultTokens, name);
 
-    setTokens(updatedTokens);
+    if (value) return value;
+    return "";
+  };
+
+  const setComputedDefaultToken = (name, value) => {
+    setComputedDefaultTokens((prevComputedDefaultTokens) => {
+      return {
+        ...prevComputedDefaultTokens,
+        [name]: value,
+      };
+    });
+  };
+
+  const setCustomToken = (name, value) => {
+    setCustomTokens((prevCustomTokens) => {
+      return {
+        ...prevCustomTokens,
+        [name]: value,
+      };
+    });
   };
 
   const handleChange = (event) => {
-    setToken(event.target.name, event.target.value);
+    setCustomToken(event.target.name, event.target.value);
   };
 
   /**
@@ -72,10 +103,10 @@ function useTokensManager() {
     const url = new URL(window.location);
     const queryParamName = "tokens";
 
-    if (tokens && Object.entries(tokens).length) {
+    if (customTokens && Object.entries(customTokens).length) {
       url.searchParams.set(
         queryParamName,
-        lzString.compressToEncodedURIComponent(JSON.stringify(tokens))
+        lzString.compressToEncodedURIComponent(JSON.stringify(customTokens))
       );
     } else {
       url.searchParams.delete(queryParamName);
@@ -85,9 +116,11 @@ function useTokensManager() {
   };
 
   return {
+    getTokenValue,
     handleChange,
-    setToken,
-    tokens,
+    setComputedDefaultToken,
+    setCustomToken,
+    customTokens,
   };
 }
 

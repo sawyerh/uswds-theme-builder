@@ -40,7 +40,7 @@ export function AccordionItem(props) {
 
 AccordionItem.propTypes = {
   children: PropTypes.node.isRequired,
-  heading: PropTypes.string.isRequired,
+  heading: PropTypes.node.isRequired,
 };
 
 /**

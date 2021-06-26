@@ -38,32 +38,33 @@ export const PopoverPicker = ({ color, onChange }) => {
 
 const InputColor = (props) => {
   const { sassVariableName, tokensManager } = props;
-  const { handleChange, setToken, tokens } = tokensManager;
+  const {
+    getTokenValue,
+    handleChange,
+    setComputedDefaultToken,
+    setCustomToken,
+  } = tokensManager;
 
   const colorName = sassVariableName.replace("$theme-color-", "");
-  const customValue = tokens ? tokens[sassVariableName] : null;
-  const [defaultValue, setDefaultValue] = useState("");
   const defaultColorElement = useRef();
   const id = sassVariableName.replace("$", "");
-  const value = customValue || defaultValue;
+  const value = getTokenValue(sassVariableName);
 
   const handleColorPickerChange = (color) => {
-    setToken(sassVariableName, color);
+    setCustomToken(sassVariableName, color);
   };
 
   /**
    * Set the default value after everything is initialized
    */
   useEffect(() => {
-    if (defaultValue) return;
-
     const element = defaultColorElement.current;
     const computedStyle = getComputedStyle(element);
     const rgb = computedStyle.getPropertyValue("background-color");
     // Browser returns transparent if background-color is empty
     const hex = rgb == "rgba(0, 0, 0, 0)" ? "" : rgbToHex(rgb);
 
-    setDefaultValue(hex);
+    setComputedDefaultToken(sassVariableName, hex);
   }, [defaultColorElement]);
 
   return (

@@ -5,20 +5,18 @@ import {
   PuzzlePiece,
 } from "phosphor-react";
 import ColorTokens from "../components/ColorTokens";
-import { useEffect } from "react";
-import useTokensManager from "../hooks/useTokensManager";
+import { useContext, useEffect } from "react";
+import TokensManagerContext from "../context/TokensManagerContext";
 
 const TokensEditor = ({ previewIframeRef }) => {
-  const tokensManager = useTokensManager();
+  const { customTokens } = useContext(TokensManagerContext);
 
   /**
    * Send tokens into our Preview iFrame when they change
    */
   useEffect(() => {
-    previewIframeRef.current.contentWindow.postMessage(
-      tokensManager.customTokens
-    );
-  }, [tokensManager.customTokens, previewIframeRef]);
+    previewIframeRef.current.contentWindow.postMessage(customTokens);
+  }, [customTokens, previewIframeRef]);
 
   return (
     <form
@@ -40,7 +38,7 @@ const TokensEditor = ({ previewIframeRef }) => {
       </a>
 
       <div className="margin-bottom-4">
-        <ColorTokens tokensManager={tokensManager} />
+        <ColorTokens />
       </div>
 
       <h2 className="text-white font-sans-lg margin-bottom-0">

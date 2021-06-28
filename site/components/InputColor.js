@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
+import TokensManagerContext from "../context/TokensManagerContext";
 import rgbToHex from "../utils/rgbToHex";
 import useClickOutside from "../hooks/useClickOutside";
 import useUniqueId from "../hooks/useUniqueId";
@@ -37,13 +38,13 @@ export const PopoverPicker = ({ color, onChange }) => {
 };
 
 const InputColor = (props) => {
-  const { sassVariableName, tokensManager } = props;
+  const { sassVariableName } = props;
   const {
     getTokenValue,
     handleChange,
     setComputedDefaultToken,
     setCustomToken,
-  } = tokensManager;
+  } = useContext(TokensManagerContext);
 
   const colorName = sassVariableName.replace("$theme-color-", "");
   const defaultColorElement = useRef();

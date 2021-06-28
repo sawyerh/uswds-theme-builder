@@ -1,6 +1,8 @@
 import Accordion, { AccordionItem } from "./Accordion";
 import InputColor from "./InputColor";
 import tokensData from "../data/tokens.json";
+import { useContext } from "react";
+import TokensManagerContext from "../context/TokensManagerContext";
 
 /**
  * If a Sass color variable starts with one of these,
@@ -32,7 +34,7 @@ Object.keys(tokensData.colors).forEach((sassVariableName) => {
   });
 });
 
-const ColorTokens = ({ tokensManager }) => {
+const ColorTokens = () => {
   return (
     <Accordion>
       {Object.entries(visibleVariablePrefixes).map(
@@ -40,7 +42,6 @@ const ColorTokens = ({ tokensManager }) => {
           <ColorFamilyTokens
             key={variablePrefix}
             sassVariables={sassVariables}
-            tokensManager={tokensManager}
             variablePrefix={variablePrefix}
           />
         )
@@ -49,12 +50,9 @@ const ColorTokens = ({ tokensManager }) => {
   );
 };
 
-const ColorFamilyTokens = ({
-  variablePrefix,
-  sassVariables,
-  tokensManager,
-}) => {
-  const middleColor = tokensManager.getTokenValue(variablePrefix);
+const ColorFamilyTokens = ({ variablePrefix, sassVariables }) => {
+  const { getTokenValue } = useContext(TokensManagerContext);
+  const middleColor = getTokenValue(variablePrefix);
 
   const heading = (
     <>
@@ -76,7 +74,6 @@ const ColorFamilyTokens = ({
         <InputColor
           key={sassVariableName}
           sassVariableName={sassVariableName}
-          tokensManager={tokensManager}
           variablePrefix={variablePrefix}
         />
       ))}

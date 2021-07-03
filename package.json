@@ -21,6 +21,10 @@
     "*.{js,json,md,mdx,scss,yaml,yml}": [
       "prettier --write",
       "git add"
+    ],
+    "*.{dart}": [
+      "dart format",
+      "git add"
     ]
   }
 }

@@ -29,14 +29,15 @@ Future main() async {
 
   final server = await shelf_io.serve(
     pipeline,
-    InternetAddress.anyIPv4, // Allows external connections
+    // Allow external connections
+    InternetAddress.anyIPv4,
     port,
   );
 
   server.autoCompress = true;
 
   print(
-      'Serving at http://${server.address.host}:${server.port} for ${origin}');
+      'Dart server running at http://${server.address.host}:${server.port} for ${origin}');
 }
 
 Future<Response> _requestHandler(Request request) async {

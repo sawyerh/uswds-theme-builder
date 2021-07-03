@@ -6,7 +6,8 @@
     "build": "next build && next export",
     "deploy": "./scripts/deploy.sh",
     "dev": "next dev",
-    "lint": "eslint --ext .js ./ --fix",
+    "lint": "eslint --ext .js ./",
+    "lint:fix": "npm run lint -- --fix",
     "postinstall": "./scripts/postinstall.sh",
     "start": "next start"
   },

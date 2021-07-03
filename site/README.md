@@ -5,19 +5,7 @@ Prerequisites:
 - Node v14+
 - NPM v7+
 
-**Install dependencies:**
-
-```sh
-npm install
-```
-
-**Run the site:**
-
-The site depends on a Sass compilation server running locally as well, on port `8080`.
-
-```sh
-npm run dev
-```
+See root [`README`](../README.md) for instructions on how to run the site locally.
 
 ## Deploy
 

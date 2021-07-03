@@ -4,7 +4,7 @@
   "scripts": {
     "deploy": "gcloud beta run deploy dart-sass-compiler --source .",
     "dev": "ORIGIN=http://localhost:3000 dart run bin/server.dart",
-    "postinstall": "./scripts/postinstall-uswds.sh"
+    "postinstall": "./scripts/postinstall.sh"
   },
   "dependencies": {
     "uswds": "^2.12.0"

@@ -6,24 +6,10 @@ Web server for compiling a themed Sass file, written in [Dart](https://dart.dev/
 
 Prerequisites:
 
-- Dart or Docker Desktop
+- [Dart](https://dart.dev/)
 - NPM v7+
 
-**Install dependencies:**
-
-```
-npm install
-```
-
-```
-dart pub get
-```
-
-**Run the server:**
-
-```
-npm run dev
-```
+See root [`README`](../README.md) for instructions on how to run the server locally.
 
 **Usage**:
 

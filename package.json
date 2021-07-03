@@ -2,19 +2,15 @@
   "name": "uswds-theme-builder-root",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js ./ --fix",
+    "setup": "./scripts/setup.sh",
+    "dev": "concurrently --kill-others --names 'SERVER,CLIENT' --prefix-colors 'cyan.bold,magenta.bold' 'npm run dev --prefix server' 'npm run dev --prefix site'",
     "prettier": "prettier --write '**/*.{js,json,md,mdx,scss,yaml,yml}'"
   },
   "devDependencies": {
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^6.0.0",
+    "concurrently": "^6.2.0",
+    "husky": "^7.0.0",
     "lint-staged": "^11.0.0",
-    "prettier": "^2.3.1"
+    "prettier": "^2.3.2"
   },
   "husky": {
     "hooks": {

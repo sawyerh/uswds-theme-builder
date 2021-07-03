@@ -32,7 +32,7 @@ const TokensEditor = ({ previewIframeRef }) => {
       <a
         className="text-white display-inline-block margin-bottom-2"
         href="https://designsystem.digital.gov/design-tokens/color/theme-tokens/"
-        target="_blank"
+        target="_blank" rel="noreferrer"
       >
         Learn about color tokens.
       </a>

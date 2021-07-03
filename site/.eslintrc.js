@@ -5,6 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
+    "plugin:@next/next/recommended",
     "eslint:recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
@@ -20,7 +21,12 @@ module.exports = {
   plugins: ["jsx-a11y", "react", "react-hooks"],
   rules: {
     "react/jsx-no-target-blank": "warn",
-    "react/prop-types": "warn",
+    "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
 };

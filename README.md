@@ -11,7 +11,12 @@
 
 ## Project setup
 
-Setup linting and git hooks:
+**Prerequisites:**
+
+- [Node.js](https://nodejs.org/en/)
+- [Dart](https://dart.dev/)
+
+**Install dependencies:**
 
 ```
 npm run setup

@@ -7,6 +7,6 @@ node_modules
 */public/**/*.css
 */public/**/*.js
 # Compiled code
-site/.next
-site/build
-site/out
+client/.next
+client/build
+client/out

@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "setup": "./scripts/setup.sh",
-    "dev": "concurrently --kill-others --names 'SERVER,CLIENT' --prefix-colors 'cyan.bold,magenta.bold' 'npm run dev --prefix server' 'npm run dev --prefix site'",
+    "dev": "concurrently --kill-others --names 'SERVER,CLIENT' --prefix-colors 'cyan.bold,magenta.bold' 'npm run dev --prefix server' 'npm run dev --prefix client'",
     "prettier": "prettier --write '**/*.{js,json,md,mdx,scss,yaml,yml}'"
   },
   "devDependencies": {

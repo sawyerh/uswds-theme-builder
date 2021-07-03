@@ -6,7 +6,7 @@
 
 ```
 ├── server    ⚡️ Sass compilation server
-└── site      🎨 Frontend
+└── client    🎨 React Single Page App
 ```
 
 ## Project setup

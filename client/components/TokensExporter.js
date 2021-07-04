@@ -14,7 +14,7 @@ const TokensExporter = () => {
   return (
     <div className="text-white">
       <PanelHeading>Sass variables</PanelHeading>
-      <pre className="bg-base-darker padding-2 overflow-x-auto font-mono-2xs line-height-mono-4">
+      <pre className="bg-base-darker padding-2 overflow-x-auto font-mono-3xs line-height-mono-3">
         {sass}
       </pre>
     </div>

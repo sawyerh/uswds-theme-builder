@@ -48,7 +48,7 @@ const TokensImporter = () => {
           </span>
         </label>
         <textarea
-          className="usa-textarea font-mono-2xs"
+          className="usa-textarea font-mono-3xs"
           id="importer"
           name="sass"
           initialValue=""

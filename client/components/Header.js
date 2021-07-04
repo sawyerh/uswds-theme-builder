@@ -21,7 +21,7 @@ export default function Header() {
             focusable="false"
             role="img"
           >
-            <use xlinkHref="/img/sprite.svg#github"></use>
+            <use xlinkHref="/assets/img/sprite.svg#github"></use>
           </svg>
         </a>
       </header>

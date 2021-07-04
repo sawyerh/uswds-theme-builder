@@ -16,7 +16,7 @@ export function AccordionItem(props) {
 
   return (
     <React.Fragment>
-      <h2 className="usa-accordion__heading font-body-2xs">
+      <h3 className="usa-accordion__heading font-body-2xs">
         <button
           className="usa-accordion__button padding-y-1 padding-left-105"
           aria-expanded={isExpanded.toString()}
@@ -26,7 +26,7 @@ export function AccordionItem(props) {
         >
           {props.heading}
         </button>
-      </h2>
+      </h3>
       <div
         id={id}
         className="usa-accordion__content padding-x-105 padding-top-105 padding-bottom-0"

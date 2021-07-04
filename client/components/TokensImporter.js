@@ -33,10 +33,18 @@ const TokensImporter = () => {
       <PanelHeading>Import</PanelHeading>
       <form onSubmit={handleSubmit} className="usa-form maxw-none">
         <label className="usa-label" htmlFor="importer">
-          <strong>Sass variables</strong>
+          <strong>USWDS settings variables</strong>
           <span className="usa-hint display-block text-base-light">
             Must follow Scss syntax. All existing values will be replaced with
-            the variables you import here.
+            the variables you import here. All{" "}
+            <a
+              className="text-base-light"
+              href="https://designsystem.digital.gov/documentation/settings/"
+              target="_blank"
+            >
+              USWDS settings
+            </a>{" "}
+            are supported.
           </span>
         </label>
         <textarea

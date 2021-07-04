@@ -1,6 +1,10 @@
 const path = require("path");
 
 module.exports = {
+  i18n: {
+    locales: ["en-US"],
+    defaultLocale: "en-US",
+  },
   sassOptions: {
     includePaths: [path.resolve(__dirname, "node_modules/uswds/dist/scss")],
   },

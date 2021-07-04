@@ -15,16 +15,17 @@ const TokensEditor = dynamic(() => import("../components/TokensEditor"));
 const TokensExporter = dynamic(() => import("../components/TokensExporter"));
 const TokensImporter = dynamic(() => import("../components/TokensImporter"));
 
-const initialPreviewHtml = formatHtml(defaultTemplateHtml);
+const initialPreviewFrameHtml = formatHtml(defaultTemplateHtml);
 
 export default function Home() {
-  const previewIframeRef = useRef();
   const [activePanel, setActivePanel] = useState(panelNavButtons[0].panel);
-  const tokensManager = useTokensManager();
-
-  const [previewHtml, setPreviewHtml] = useState(
+  // Frame can't accept messages until it's loaded and its listener is established.
+  const [previewFrameLoaded, setPreviewFrameLoaded] = useState(false);
+  const [previewFrameHtml, setPreviewFrameHtml] = useState(
     formatHtml(defaultTemplateHtml)
   );
+  const previewFrameRef = useRef();
+  const tokensManager = useTokensManager();
 
   /**
    * Send data into the preview iframe.
@@ -32,7 +33,7 @@ export default function Home() {
    * @param {any} body - Data to send.
    */
   const postMessageToPreviewIframe = (name, body) => {
-    previewIframeRef.current.contentWindow.postMessage({
+    previewFrameRef.current.contentWindow.postMessage({
       name,
       body,
     });
@@ -43,14 +44,14 @@ export default function Home() {
    */
   useEffect(() => {
     postMessageToPreviewIframe("update_tokens", tokensManager.customTokens);
-  }, [tokensManager.customTokens, previewIframeRef]);
+  }, [tokensManager.customTokens, previewFrameRef, previewFrameLoaded]);
 
   /**
    * Sync the HTML used in the preview frame
    */
   useEffect(() => {
-    postMessageToPreviewIframe("update_html", previewHtml);
-  }, [previewHtml, previewIframeRef]);
+    postMessageToPreviewIframe("update_html", previewFrameHtml);
+  }, [previewFrameHtml, previewFrameRef, previewFrameLoaded]);
 
   return (
     <>
@@ -70,9 +71,7 @@ export default function Home() {
 
           <div className="padding-x-2 padding-y-3">
             <TokensManagerContext.Provider value={tokensManager}>
-              {activePanel === "Editor" && (
-                <TokensEditor previewIframeRef={previewIframeRef} />
-              )}
+              {activePanel === "Editor" && <TokensEditor />}
               {activePanel === "Import" && <TokensImporter />}
               {activePanel === "Export" && <TokensExporter />}
             </TokensManagerContext.Provider>
@@ -84,13 +83,14 @@ export default function Home() {
               className="border-0 pin-all height-full width-full"
               src="/preview"
               title="Theme preview"
-              ref={previewIframeRef}
+              ref={previewFrameRef}
+              onLoad={() => setPreviewFrameLoaded(true)}
             />
           </section>
           <section className="bg-black width-full">
             <CodeEditor
-              initialValue={initialPreviewHtml}
-              onChange={setPreviewHtml}
+              initialValue={initialPreviewFrameHtml}
+              onChange={setPreviewFrameHtml}
             />
           </section>
         </div>

@@ -2,16 +2,18 @@ import { Clipboard, FilePlus, Sliders } from "phosphor-react";
 import { useEffect, useRef, useState } from "react";
 import IconButton from "../components/IconButton";
 import classnames from "classnames";
-import CodeEditor from "../components/CodeEditor";
 import Header from "../components/Header";
 import Head from "next/head";
-import TokensEditor from "../components/TokensEditor";
-import TokensExporter from "../components/TokensExporter";
-import TokensImporter from "../components/TokensImporter";
 import TokensManagerContext from "../context/TokensManagerContext";
 import defaultTemplateHtml from "../templates/default.html";
+import dynamic from "next/dynamic";
 import formatHtml from "../utils/formatHtml";
 import useTokensManager from "../hooks/useTokensManager";
+
+const CodeEditor = dynamic(() => import("../components/CodeEditor"));
+const TokensEditor = dynamic(() => import("../components/TokensEditor"));
+const TokensExporter = dynamic(() => import("../components/TokensExporter"));
+const TokensImporter = dynamic(() => import("../components/TokensImporter"));
 
 const initialPreviewHtml = formatHtml(defaultTemplateHtml);
 

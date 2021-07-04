@@ -2,7 +2,7 @@ import Accordion, { AccordionItem } from "./Accordion";
 import { useContext, useEffect, useRef, useState } from "react";
 import TokensManagerContext from "../context/TokensManagerContext";
 import dynamic from "next/dynamic";
-import tokensData from "../data/tokens.json";
+import tokensData from "../../data/tokens.json";
 import { flattenDeep } from "lodash";
 import rgbToHex from "../utils/rgbToHex";
 

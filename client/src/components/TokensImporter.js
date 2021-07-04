@@ -51,7 +51,6 @@ const TokensImporter = () => {
           className="usa-textarea font-mono-3xs"
           id="importer"
           name="sass"
-          initialValue=""
           placeholder="$theme-color-primary: #ff0000;"
         />
         <button type="submit" className="usa-button">

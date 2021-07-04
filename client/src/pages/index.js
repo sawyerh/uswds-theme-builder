@@ -5,7 +5,7 @@ import classnames from "classnames";
 import Header from "../components/Header";
 import Head from "next/head";
 import TokensManagerContext from "../context/TokensManagerContext";
-import defaultTemplateHtml from "../templates/default.html";
+import defaultTemplateHtml from "../../templates/default.html";
 import dynamic from "next/dynamic";
 import formatHtml from "../utils/formatHtml";
 import useTokensManager from "../hooks/useTokensManager";

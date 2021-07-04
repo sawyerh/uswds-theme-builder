@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
 import TokensManagerContext from "../context/TokensManagerContext";
 import PanelHeading from "../components/PanelHeading";
 import { parse } from "postcss-scss";
+import { useContext } from "react";
 import variablesFromScss from "../utils/variablesFromScss";
 
 const TokensImporter = () => {

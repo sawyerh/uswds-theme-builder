@@ -20,7 +20,7 @@ function useTokensManager() {
    */
   const [computedDefaultTokens, setComputedDefaultTokens] = useState({});
 
-  const [debouncedCustomTokens] = useDebounce(customTokens, 1000);
+  const [debouncedCustomTokens] = useDebounce(customTokens, 750);
 
   /**
    * Parse and store the tokens from the URL query param
@@ -51,15 +51,6 @@ function useTokensManager() {
 
     if (value) return value;
     return "";
-  };
-
-  const setComputedDefaultToken = (name, value) => {
-    setComputedDefaultTokens((prevComputedDefaultTokens) => {
-      return {
-        ...prevComputedDefaultTokens,
-        [name]: value,
-      };
-    });
   };
 
   const setCustomToken = (name, value) => {
@@ -110,7 +101,7 @@ function useTokensManager() {
   return {
     getTokenValue,
     handleChange,
-    setComputedDefaultToken,
+    setComputedDefaultTokens,
     setCustomToken,
     customTokens,
   };

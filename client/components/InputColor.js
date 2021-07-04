@@ -1,17 +1,16 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import TokensManagerContext from "../context/TokensManagerContext";
-import rgbToHex from "../utils/rgbToHex";
 import useClickOutside from "../hooks/useClickOutside";
+import { useDebounce } from "use-debounce";
 import useUniqueId from "../hooks/useUniqueId";
 
 export const PopoverPicker = ({ color, onChange }) => {
   const popover = useRef();
   const [isOpen, toggle] = useState(false);
-  const close = useCallback(() => toggle(false), []);
   const id = useUniqueId();
 
-  useClickOutside(popover, close);
+  useClickOutside(popover, () => toggle(false));
 
   return (
     <div className="position-relative">
@@ -39,34 +38,31 @@ export const PopoverPicker = ({ color, onChange }) => {
 
 const InputColor = (props) => {
   const { sassVariableName } = props;
-  const {
-    getTokenValue,
-    handleChange,
-    setComputedDefaultToken,
-    setCustomToken,
-  } = useContext(TokensManagerContext);
+  const { getTokenValue, setCustomToken } = useContext(TokensManagerContext);
+  const [hasChanged, setHasChanged] = useState(false);
 
   const colorName = sassVariableName.replace("$theme-color-", "");
-  const defaultColorElement = useRef();
-  const id = sassVariableName.replace("$", "");
-  const value = getTokenValue(sassVariableName);
-
-  const handleColorPickerChange = (color) => {
-    setCustomToken(sassVariableName, color);
-  };
+  const id = colorName;
 
   /**
-   * Set the default value after everything is initialized
+   * Cache the field value locally to optimize performance.
    */
-  useEffect(() => {
-    const element = defaultColorElement.current;
-    const computedStyle = getComputedStyle(element);
-    const rgb = computedStyle.getPropertyValue("background-color");
-    // Browser returns transparent if background-color is empty
-    const hex = rgb == "rgba(0, 0, 0, 0)" ? "" : rgbToHex(rgb);
+  const [value, setValue] = useState(getTokenValue(sassVariableName));
+  const [debouncedValue] = useDebounce(value, 500);
 
-    setComputedDefaultToken(sassVariableName, hex);
-  }, [defaultColorElement]);
+  const changeValue = (value) => {
+    setValue(value);
+    setHasChanged(true);
+  };
+  const handleChange = (event) => {
+    changeValue(event.target.value);
+  };
+
+  useEffect(() => {
+    if (hasChanged) {
+      setCustomToken(sassVariableName, debouncedValue);
+    }
+  }, [hasChanged, debouncedValue]);
 
   return (
     <>
@@ -77,7 +73,7 @@ const InputColor = (props) => {
         {colorName}
       </label>
       <div className="display-flex margin-bottom-105">
-        <PopoverPicker color={value} onChange={handleColorPickerChange} />
+        <PopoverPicker color={value} onChange={changeValue} />
         <div className="flex-fill margin-left-1">
           <input
             className="usa-input width-full font-mono-3xs margin-top-0 height-4"
@@ -86,7 +82,6 @@ const InputColor = (props) => {
             value={value}
             id={id}
           />
-          <div ref={defaultColorElement} className={`bg-${colorName}`} />
         </div>
       </div>
     </>

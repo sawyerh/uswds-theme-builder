@@ -1,8 +1,10 @@
 import Accordion, { AccordionItem } from "./Accordion";
+import { useContext, useEffect, useRef, useState } from "react";
 import InputColor from "./InputColor";
-import tokensData from "../data/tokens.json";
-import { useContext } from "react";
 import TokensManagerContext from "../context/TokensManagerContext";
+import tokensData from "../data/tokens.json";
+import { flattenDeep } from "lodash";
+import rgbToHex from "../utils/rgbToHex";
 
 /**
  * If a Sass color variable starts with one of these,
@@ -35,6 +37,21 @@ Object.keys(tokensData.colors).forEach((sassVariableName) => {
 });
 
 const ColorTokens = () => {
+  const [hasComputedColorTokens, setHasComputedColorTokens] = useState(false);
+
+  /**
+   * Make sure we've computed the default hex values for the tokens before
+   * rendering the token editor.
+   */
+  if (!hasComputedColorTokens) {
+    return (
+      <ComputedDefaultTokensSetter
+        onComplete={() => setHasComputedColorTokens(true)}
+        sassVariables={flattenDeep(Object.values(visibleVariablePrefixes))}
+      />
+    );
+  }
+
   return (
     <Accordion>
       {Object.entries(visibleVariablePrefixes).map(
@@ -78,6 +95,52 @@ const ColorFamilyTokens = ({ variablePrefix, sassVariables }) => {
         />
       ))}
     </AccordionItem>
+  );
+};
+
+/**
+ * Mounts elements with USWDS utility classes in order to read the computed styles.
+ * We should do this only once on mount in order to optimize performance.
+ */
+const ComputedDefaultTokensSetter = ({ onComplete, sassVariables }) => {
+  const containerRef = useRef();
+  const { setComputedDefaultTokens } = useContext(TokensManagerContext);
+
+  useEffect(() => {
+    const elements = containerRef.current.querySelectorAll(
+      "span[data-variable]"
+    );
+    const computedColorTokens = {};
+
+    elements.forEach((element) => {
+      const computedStyle = getComputedStyle(element);
+      const rgb = computedStyle.getPropertyValue("background-color");
+      // Browser returns transparent if background-color is empty
+      const hex = rgb == "rgba(0, 0, 0, 0)" ? "" : rgbToHex(rgb);
+
+      computedColorTokens[element.getAttribute("data-variable")] = hex;
+    });
+
+    setComputedDefaultTokens((prevComputedDefaultTokens) => {
+      return {
+        ...prevComputedDefaultTokens,
+        ...computedColorTokens,
+      };
+    });
+
+    onComplete();
+  }, [containerRef]);
+
+  return (
+    <div ref={containerRef}>
+      {sassVariables.map((sassVariableName) => (
+        <span
+          key={sassVariableName}
+          data-variable={sassVariableName}
+          className={`bg-${sassVariableName.replace("$theme-color-", "")}`}
+        />
+      ))}
+    </div>
   );
 };
 

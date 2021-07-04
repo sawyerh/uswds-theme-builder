@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import defaultTemplateHtml from "../templates/default.html";
@@ -7,6 +6,23 @@ let USWDS;
 if (typeof window !== "undefined") {
   import(`uswds/src/js/components`).then((module) => {
     USWDS = module.default;
+  });
+}
+
+function initUswdsComponents() {
+  if (!USWDS) return;
+
+  Object.keys(USWDS).forEach((componentName) => {
+    const component = USWDS[componentName];
+    if (typeof component.on === "function") {
+      try {
+        component.on();
+      } catch (error) {
+        // The Preview HTML might be invalid when the user is typing
+        // it in, so this error might then occur
+        console.error(error);
+      }
+    }
   });
 }
 
@@ -51,23 +67,12 @@ export default function Preview() {
   /**
    * Re-generate the theme when tokens change
    */
-  useEffect(() => {
-    loadStyles();
-  }, [tokensCache]);
+  useEffect(loadStyles, [tokensCache]);
 
   /**
-   * Enable JS functionality on USWDS components
+   * Initialize USWDS component JS anytime we render the preview's HTML
    */
-  useEffect(() => {
-    if (!USWDS) return;
-
-    Object.keys(USWDS).forEach((componentName) => {
-      const component = USWDS[componentName];
-      if (typeof component.on === "function") {
-        component.on();
-      }
-    });
-  }, [USWDS, previewHtml]);
+  useEffect(initUswdsComponents, [USWDS, previewHtml]);
 
   /**
    * Receive messages from the parent frame.

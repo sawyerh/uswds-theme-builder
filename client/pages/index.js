@@ -8,7 +8,10 @@ import Head from "next/head";
 import TokensEditor from "../components/TokensEditor";
 import TokensManagerContext from "../context/TokensManagerContext";
 import defaultTemplateHtml from "../templates/default.html";
+import formatHtml from "../utils/formatHtml";
 import useTokensManager from "../hooks/useTokensManager";
+
+const initialPreviewHtml = formatHtml(defaultTemplateHtml);
 
 const navButtons = [
   {
@@ -29,11 +32,9 @@ export default function Home() {
   const previewIframeRef = useRef();
   const [activeNavButton] = useState(navButtons[0]);
   const tokensManager = useTokensManager();
-  const [previewHtml, setPreviewHtml] = useState(defaultTemplateHtml);
-
-  const handleCodeEditorChange = (_editor, _data, value) => {
-    setPreviewHtml(value);
-  };
+  const [previewHtml, setPreviewHtml] = useState(
+    formatHtml(defaultTemplateHtml)
+  );
 
   const postMessageToPreviewIframe = (name, body) => {
     previewIframeRef.current.contentWindow.postMessage({
@@ -107,8 +108,8 @@ export default function Home() {
             </section>
             <section className="bg-black width-full">
               <CodeEditor
-                onChange={handleCodeEditorChange}
-                value={previewHtml}
+                initialValue={initialPreviewHtml}
+                onChange={setPreviewHtml}
               />
             </section>
           </div>

@@ -20,6 +20,7 @@ module.exports = {
   },
   plugins: ["jsx-a11y", "react", "react-hooks"],
   rules: {
+    "@next/next/no-img-element": "off",
     "react/jsx-no-target-blank": "warn",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",

@@ -13,24 +13,9 @@ import useTokensManager from "../hooks/useTokensManager";
 
 const initialPreviewHtml = formatHtml(defaultTemplateHtml);
 
-const navButtons = [
-  {
-    icon: Sliders,
-    label: "Editor",
-  },
-  {
-    icon: FilePlus,
-    label: "Import",
-  },
-  {
-    icon: Clipboard,
-    label: "Export",
-  },
-];
-
 export default function Home() {
   const previewIframeRef = useRef();
-  const [activeNavButton] = useState(navButtons[0]);
+  const [activePanel, setActivePanel] = useState(panelNavButtons[0].panel);
   const tokensManager = useTokensManager();
   const [previewHtml, setPreviewHtml] = useState(
     formatHtml(defaultTemplateHtml)
@@ -66,36 +51,14 @@ export default function Home() {
         <div className="grid-row">
           <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">
             <Header />
+            <PanelNav
+              activePanel={activePanel}
+              onPanelChange={setActivePanel}
+            />
 
-            <nav className="border-bottom-1px border-base padding-left-1 padding-y-1">
-              {navButtons.map((navButton) => (
-                <IconButton
-                  key={navButton.label}
-                  aria-current={String(
-                    navButton.label === activeNavButton.label
-                  )}
-                  className={classnames(
-                    "padding-y-1 padding-x-1 font-body-2xs hover:text-white",
-                    {
-                      "text-white text-no-underline text-bold":
-                        navButton.label === activeNavButton.label,
-                      "text-base-lighter":
-                        navButton.label !== activeNavButton.label,
-                    }
-                  )}
-                  icon={navButton.icon}
-                  iconProps={{
-                    weight:
-                      navButton.label === activeNavButton.label
-                        ? "bold"
-                        : "regular",
-                  }}
-                >
-                  {navButton.label}
-                </IconButton>
-              ))}
-            </nav>
-            <TokensEditor previewIframeRef={previewIframeRef} />
+            {activePanel === "Editor" && (
+              <TokensEditor previewIframeRef={previewIframeRef} />
+            )}
           </section>
           <div className="grid-col-fill display-flex flex-column">
             <section className="bg-base-lighter flex-fill position-relative">
@@ -116,5 +79,48 @@ export default function Home() {
         </div>
       </TokensManagerContext.Provider>
     </>
+  );
+}
+
+const panelNavButtons = [
+  {
+    icon: Sliders,
+    panel: "Editor",
+  },
+  {
+    icon: FilePlus,
+    panel: "Import",
+  },
+  {
+    icon: Clipboard,
+    panel: "Export",
+  },
+];
+
+function PanelNav({ activePanel, onPanelChange }) {
+  return (
+    <nav className="border-bottom-1px border-base padding-left-1 padding-y-1">
+      {panelNavButtons.map((navButton) => (
+        <IconButton
+          key={navButton.panel}
+          aria-current={String(navButton.panel === activePanel)}
+          className={classnames(
+            "padding-y-1 padding-x-1 font-body-2xs hover:text-white",
+            {
+              "text-white text-no-underline text-bold":
+                navButton.panel === activePanel,
+              "text-base-lighter": navButton.panel !== activePanel,
+            }
+          )}
+          icon={navButton.icon}
+          iconProps={{
+            weight: navButton.panel === activePanel ? "bold" : "regular",
+          }}
+          onClick={() => onPanelChange(navButton.panel)}
+        >
+          {navButton.panel}
+        </IconButton>
+      ))}
+    </nav>
   );
 }

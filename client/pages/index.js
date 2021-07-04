@@ -63,6 +63,10 @@ export default function Home() {
             defer
           ></script>
         ) : null}
+        <meta
+          name="description"
+          content="Create a custom U.S. Web Design System theme using your project's colors, typography, and spacing."
+        />
       </Head>
       <div className="grid-row">
         <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">

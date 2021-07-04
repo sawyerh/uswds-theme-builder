@@ -5,8 +5,9 @@ import classnames from "classnames";
 import CodeEditor from "../components/CodeEditor";
 import Header from "../components/Header";
 import Head from "next/head";
-import TokensExporter from "../components/TokensExporter";
 import TokensEditor from "../components/TokensEditor";
+import TokensExporter from "../components/TokensExporter";
+import TokensImporter from "../components/TokensImporter";
 import TokensManagerContext from "../context/TokensManagerContext";
 import defaultTemplateHtml from "../templates/default.html";
 import formatHtml from "../utils/formatHtml";
@@ -70,6 +71,7 @@ export default function Home() {
               {activePanel === "Editor" && (
                 <TokensEditor previewIframeRef={previewIframeRef} />
               )}
+              {activePanel === "Import" && <TokensImporter />}
               {activePanel === "Export" && <TokensExporter />}
             </TokensManagerContext.Provider>
           </div>

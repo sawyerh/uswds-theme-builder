@@ -8,6 +8,7 @@ const fs = require("fs/promises");
 const { parse } = require("postcss-scss");
 const path = require("path");
 const { set } = require("lodash");
+const variablesFromScss = require("../utils/variablesFromScss");
 
 /**
  * @param {string} filename
@@ -24,15 +25,6 @@ async function parseVariablesFromFile(filename) {
     )
     .then(parse)
     .then(variablesFromScss);
-}
-
-/**
- * Pull just Sass variables from a Sass file's AST root
- * @param {Root} scssRoot (https://postcss.org/api/#root)
- * @returns {Declaration} https://postcss.org/api/#declaration
- */
-function variablesFromScss(scssRoot) {
-  return scssRoot.nodes.filter((n) => n.type === "decl" && n.variable);
 }
 
 async function run() {

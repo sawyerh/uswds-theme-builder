@@ -103,6 +103,7 @@ function useTokensManager() {
     handleChange,
     setComputedDefaultTokens,
     setCustomToken,
+    setCustomTokens,
     customTokens,
   };
 }

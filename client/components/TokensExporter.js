@@ -4,10 +4,12 @@ import { useContext } from "react";
 
 const TokensExporter = () => {
   const { customTokens } = useContext(TokensManagerContext);
-  const sass = Object.entries(customTokens)
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([name, value]) => `${name}: ${value};`)
-    .join("\n");
+  const sass = customTokens
+    ? Object.entries(customTokens)
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([name, value]) => `${name}: ${value};`)
+        .join("\n")
+    : "No custom tokens are set yet.";
 
   return (
     <div className="text-white">

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { get } from "lodash";
-import lzString from "lz-string";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
 
@@ -83,12 +82,8 @@ function useTokensManager() {
   const parseTokensFromQuery = () => {
     if (!query.tokens) return;
 
-    const decodedTokensParam = lzString.decompressFromEncodedURIComponent(
-      query.tokens
-    );
-
     try {
-      const tokensObject = JSON.parse(decodedTokensParam);
+      const tokensObject = JSON.parse(query.tokens);
       return tokensObject;
     } catch (error) {
       console.error(error);
@@ -104,10 +99,7 @@ function useTokensManager() {
     const queryParamName = "tokens";
 
     if (customTokens && Object.entries(customTokens).length) {
-      url.searchParams.set(
-        queryParamName,
-        lzString.compressToEncodedURIComponent(JSON.stringify(customTokens))
-      );
+      url.searchParams.set(queryParamName, JSON.stringify(customTokens));
     } else {
       url.searchParams.delete(queryParamName);
     }

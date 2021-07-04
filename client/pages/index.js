@@ -17,6 +17,7 @@ export default function Home() {
   const previewIframeRef = useRef();
   const [activePanel, setActivePanel] = useState(panelNavButtons[0].panel);
   const tokensManager = useTokensManager();
+
   const [previewHtml, setPreviewHtml] = useState(
     formatHtml(defaultTemplateHtml)
   );
@@ -58,37 +59,34 @@ export default function Home() {
           ></script>
         ) : null}
       </Head>
-      <TokensManagerContext.Provider value={tokensManager}>
-        <div className="grid-row">
-          <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">
-            <Header />
-            <PanelNav
-              activePanel={activePanel}
-              onPanelChange={setActivePanel}
-            />
+      <div className="grid-row">
+        <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">
+          <Header />
+          <PanelNav activePanel={activePanel} onPanelChange={setActivePanel} />
 
+          <TokensManagerContext.Provider value={tokensManager}>
             {activePanel === "Editor" && (
               <TokensEditor previewIframeRef={previewIframeRef} />
             )}
+          </TokensManagerContext.Provider>
+        </section>
+        <div className="grid-col-fill display-flex flex-column">
+          <section className="bg-base-lighter flex-fill position-relative">
+            <iframe
+              className="border-0 pin-all height-full width-full"
+              src="/preview"
+              title="Theme preview"
+              ref={previewIframeRef}
+            />
           </section>
-          <div className="grid-col-fill display-flex flex-column">
-            <section className="bg-base-lighter flex-fill position-relative">
-              <iframe
-                className="border-0 pin-all height-full width-full"
-                src="/preview"
-                title="Theme preview"
-                ref={previewIframeRef}
-              />
-            </section>
-            <section className="bg-black width-full">
-              <CodeEditor
-                initialValue={initialPreviewHtml}
-                onChange={setPreviewHtml}
-              />
-            </section>
-          </div>
+          <section className="bg-black width-full">
+            <CodeEditor
+              initialValue={initialPreviewHtml}
+              onChange={setPreviewHtml}
+            />
+          </section>
         </div>
-      </TokensManagerContext.Provider>
+      </div>
     </>
   );
 }

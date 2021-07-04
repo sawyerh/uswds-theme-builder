@@ -33,10 +33,8 @@ export default function Home() {
    * @param {any} body - Data to send.
    */
   const postMessageToPreviewIframe = (name, body) => {
-    previewFrameRef.current.contentWindow.postMessage({
-      name,
-      body,
-    });
+    const data = { name, body };
+    previewFrameRef.current.contentWindow.postMessage(data, window.origin);
   };
 
   /**

@@ -81,6 +81,8 @@ export default function Preview() {
    */
   useEffect(() => {
     const handleFrameMessage = (event) => {
+      if (event.origin !== window.origin) return;
+
       const { name, body } = event.data;
       if (name === "update_tokens") {
         setTokensCache(body);

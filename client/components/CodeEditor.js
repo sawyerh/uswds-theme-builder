@@ -4,11 +4,15 @@ import IconButton from "./IconButton";
 import classNames from "classnames";
 import dynamic from "next/dynamic";
 
+if (typeof window !== "undefined") {
+  require("codemirror/mode/xml/xml");
+}
+
 const CodeMirror = dynamic(() =>
-  import("react-codemirror2").then((mod) => mod.UnControlled)
+  import("react-codemirror2").then((mod) => mod.Controlled)
 );
 
-const CodeEditor = () => {
+const CodeEditor = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const handleToggleClick = () => setIsExpanded(!isExpanded);
 
@@ -26,12 +30,13 @@ const CodeEditor = () => {
       {isExpanded ? (
         <div className={classNames("font-mono-md")}>
           <CodeMirror
-            value="<h1>Feature coming soon. Sign up to learn when it's available: https://forms.gle/adA3KkTjxqHcsH5S8</h1>"
+            onBeforeChange={props.onChange}
             options={{
               mode: "xml",
               theme: "vibrant-ink",
               lineNumbers: true,
             }}
+            value={props.value}
           />
         </div>
       ) : null}

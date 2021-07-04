@@ -1,35 +1,25 @@
-/* eslint-disable */
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import { useDebouncedCallback } from "use-debounce";
 import defaultTemplateHtml from "../templates/default.html";
 
-/**
- * Exclude USWDS scripts from SSR since it breaks otherwise
- */
-const ScriptsForUSWDS = dynamic(() => import("../components/ScriptsForUSWDS"), {
-  ssr: false,
-});
+let USWDS;
+if (typeof window !== "undefined") {
+  import(`uswds/src/js/components`).then((module) => {
+    USWDS = module.default;
+  });
+}
 
-export default function Preview(props) {
+export default function Preview() {
   const [styles, setStyles] = useState("");
   const [tokensCache, setTokensCache] = useState({});
   const [previewError, setPreviewError] = useState();
+  const [previewHtml, setPreviewHtml] = useState(defaultTemplateHtml);
   const [isLoading, setIsLoading] = useState();
-  const [uswdsKey, setUswdsKey] = useState(1);
   const abortControllerRef = useRef();
 
   /**
-   * Increment a key to force the USWDS script to re-init anytime
-   * the DOM re-renders, otherwise things are funky.
-   */
-  useEffect(() => {
-    setUswdsKey((k) => k + 1);
-  }, [isLoading]);
-
-  /**
    * Load USWDS styles for the preview
-   * @param {object} [tokens] - Sass theme tokens
    */
   const loadStyles = useDebouncedCallback(async () => {
     let body;
@@ -58,13 +48,35 @@ export default function Preview(props) {
     abortControllerRef.current = null;
   }, 1000);
 
+  /**
+   * Re-generate the theme when tokens change
+   */
   useEffect(() => {
     loadStyles();
   }, [tokensCache]);
 
+  /**
+   * Enable JS functionality on USWDS components
+   */
+  useEffect(() => {
+    if (!USWDS) return;
+
+    Object.keys(USWDS).forEach((componentName) => {
+      const component = USWDS[componentName];
+      if (typeof component.on === "function") {
+        component.on();
+      }
+    });
+  }, [USWDS, previewHtml]);
+
+  /**
+   * Receive messages from the parent frame.
+   */
   useEffect(() => {
     const handleFrameMessage = (event) => {
-      setTokensCache(event.data);
+      const { name, body } = event.data;
+      if (name === "update_tokens") setTokensCache(body);
+      if (name === "update_html") setPreviewHtml(body);
     };
 
     window.addEventListener("message", handleFrameMessage, false);
@@ -73,46 +85,64 @@ export default function Preview(props) {
 
   return (
     <>
-      {isLoading ? (
-        <div className="pin-all position-fixed z-top display-flex flex-column flex-align-center flex-justify-center text-center bg-black opacity-80 text-white">
-          <img
-            className="display-inline-block margin-bottom-2"
-            src="/loader.svg"
-            alt="Loading"
-            width="36"
-          />
-          <div>Building theme</div>
-        </div>
-      ) : null}
+      {isLoading ? <LoadingScreen /> : null}
 
       {previewError ? (
-        <div className="font-mono-3xs text-white pin-top position-fixed z-top width-full overflow-y-auto maxh-viewport">
-          <pre
-            className="overflow-x-auto margin-0 padding-105"
-            style={{ backgroundColor: "#b50909" }}
-          >
-            {previewError}
-          </pre>
-          <div className="bg-base-darkest padding-105">
-            <strong>
-              Attempted to create theme using the following Sass variables:
-            </strong>
-            {Object.entries(tokensCache).map(([tokenKey, tokenVar]) => (
-              <code className="display-block margin-y-05" key={tokenKey}>
-                {tokenKey}: {tokenVar};
-              </code>
-            ))}
-          </div>
-        </div>
+        <SassError tokens={tokensCache}>{previewError}</SassError>
       ) : null}
 
       <style>{styles}</style>
 
-      <div
-        key="template"
-        dangerouslySetInnerHTML={{ __html: defaultTemplateHtml }}
-      />
-      <ScriptsForUSWDS key={uswdsKey} />
+      <section
+        className="padding-1"
+        style={{
+          background:
+            "repeating-conic-gradient(#dfe1e2 0% 25%, transparent 0% 50%) 50% / 20px 20px",
+        }}
+      >
+        <div
+          className="bg-white"
+          key="template"
+          dangerouslySetInnerHTML={{ __html: previewHtml }}
+        />
+      </section>
     </>
+  );
+}
+
+function LoadingScreen() {
+  return (
+    <div className="pin-all position-fixed z-top display-flex flex-column flex-align-center flex-justify-center text-center bg-black opacity-80 text-white">
+      <img
+        className="display-inline-block margin-bottom-2"
+        src="/loader.svg"
+        alt="Loading"
+        width="36"
+      />
+      <div>Building theme</div>
+    </div>
+  );
+}
+
+function SassError({ children, tokens }) {
+  return (
+    <div className="font-mono-3xs text-white pin-top position-fixed z-top width-full overflow-y-auto maxh-viewport">
+      <pre
+        className="overflow-x-auto margin-0 padding-105"
+        style={{ backgroundColor: "#b50909" }}
+      >
+        {children}
+      </pre>
+      <div className="bg-base-darkest padding-105">
+        <strong>
+          Attempted to create theme using the following Sass variables:
+        </strong>
+        {Object.entries(tokens).map(([tokenKey, tokenVar]) => (
+          <code className="display-block margin-y-05" key={tokenKey}>
+            {tokenKey}: {tokenVar};
+          </code>
+        ))}
+      </div>
+    </div>
   );
 }

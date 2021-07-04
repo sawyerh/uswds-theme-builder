@@ -5,19 +5,8 @@ import {
   PuzzlePiece,
 } from "phosphor-react";
 import ColorTokens from "../components/ColorTokens";
-import { useContext, useEffect } from "react";
-import TokensManagerContext from "../context/TokensManagerContext";
 
-const TokensEditor = ({ previewIframeRef }) => {
-  const { customTokens } = useContext(TokensManagerContext);
-
-  /**
-   * Send tokens into our Preview iFrame when they change
-   */
-  useEffect(() => {
-    previewIframeRef.current.contentWindow.postMessage(customTokens);
-  }, [customTokens, previewIframeRef]);
-
+const TokensEditor = () => {
   return (
     <form
       onSubmit={(e) => e.preventDefault}
@@ -32,7 +21,8 @@ const TokensEditor = ({ previewIframeRef }) => {
       <a
         className="text-white display-inline-block margin-bottom-2"
         href="https://designsystem.digital.gov/design-tokens/color/theme-tokens/"
-        target="_blank" rel="noreferrer"
+        target="_blank"
+        rel="noreferrer"
       >
         Learn about color tokens.
       </a>

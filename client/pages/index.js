@@ -1,5 +1,5 @@
 import { Clipboard, FilePlus, Sliders } from "phosphor-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IconButton from "../components/IconButton";
 import classnames from "classnames";
 import CodeEditor from "../components/CodeEditor";
@@ -7,11 +7,8 @@ import Header from "../components/Header";
 import Head from "next/head";
 import TokensEditor from "../components/TokensEditor";
 import TokensManagerContext from "../context/TokensManagerContext";
+import defaultTemplateHtml from "../templates/default.html";
 import useTokensManager from "../hooks/useTokensManager";
-
-if (typeof window !== "undefined") {
-  require("codemirror/mode/xml/xml");
-}
 
 const navButtons = [
   {
@@ -32,6 +29,26 @@ export default function Home() {
   const previewIframeRef = useRef();
   const [activeNavButton] = useState(navButtons[0]);
   const tokensManager = useTokensManager();
+  const [previewHtml, setPreviewHtml] = useState(defaultTemplateHtml);
+
+  const handleCodeEditorChange = (_editor, _data, value) => {
+    setPreviewHtml(value);
+  };
+
+  const postMessageToPreviewIframe = (name, body) => {
+    previewIframeRef.current.contentWindow.postMessage({
+      name,
+      body,
+    });
+  };
+
+  useEffect(() => {
+    postMessageToPreviewIframe("update_tokens", tokensManager.customTokens);
+  }, [tokensManager.customTokens, previewIframeRef]);
+
+  useEffect(() => {
+    postMessageToPreviewIframe("update_html", previewHtml);
+  }, [previewHtml, previewIframeRef]);
 
   return (
     <>
@@ -89,7 +106,10 @@ export default function Home() {
               />
             </section>
             <section className="bg-black width-full">
-              <CodeEditor />
+              <CodeEditor
+                onChange={handleCodeEditorChange}
+                value={previewHtml}
+              />
             </section>
           </div>
         </div>

@@ -5,6 +5,7 @@ import classnames from "classnames";
 import CodeEditor from "../components/CodeEditor";
 import Header from "../components/Header";
 import Head from "next/head";
+import TokensExporter from "../components/TokensExporter";
 import TokensEditor from "../components/TokensEditor";
 import TokensManagerContext from "../context/TokensManagerContext";
 import defaultTemplateHtml from "../templates/default.html";
@@ -64,11 +65,14 @@ export default function Home() {
           <Header />
           <PanelNav activePanel={activePanel} onPanelChange={setActivePanel} />
 
-          <TokensManagerContext.Provider value={tokensManager}>
-            {activePanel === "Editor" && (
-              <TokensEditor previewIframeRef={previewIframeRef} />
-            )}
-          </TokensManagerContext.Provider>
+          <div className="padding-x-2 padding-y-3">
+            <TokensManagerContext.Provider value={tokensManager}>
+              {activePanel === "Editor" && (
+                <TokensEditor previewIframeRef={previewIframeRef} />
+              )}
+              {activePanel === "Export" && <TokensExporter />}
+            </TokensManagerContext.Provider>
+          </div>
         </section>
         <div className="grid-col-fill display-flex flex-column">
           <section className="bg-base-lighter flex-fill position-relative">

@@ -84,6 +84,8 @@ Future<String> createSassContents(Request request) async {
   \$utilities-use-important: true;
 
   \$background-color-palettes: ("palette-color-state");
+  \$theme-font-path: "/assets/fonts";
+  \$theme-image-path: "/assets/img";
 
   /*
     Custom Sass variables passed in through the request

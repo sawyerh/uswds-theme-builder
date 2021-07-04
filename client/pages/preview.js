@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import defaultTemplateHtml from "../templates/default.html";
 
 let USWDS;
 if (typeof window !== "undefined") {
@@ -30,7 +29,7 @@ export default function Preview() {
   const [styles, setStyles] = useState("");
   const [tokensCache, setTokensCache] = useState({});
   const [previewError, setPreviewError] = useState();
-  const [previewHtml, setPreviewHtml] = useState(defaultTemplateHtml);
+  const [previewHtml, setPreviewHtml] = useState();
   const [isLoading, setIsLoading] = useState();
   const abortControllerRef = useRef();
 

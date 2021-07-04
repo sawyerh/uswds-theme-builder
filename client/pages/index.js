@@ -21,6 +21,11 @@ export default function Home() {
     formatHtml(defaultTemplateHtml)
   );
 
+  /**
+   * Send data into the preview iframe.
+   * @param {string} name - Message name.
+   * @param {any} body - Data to send.
+   */
   const postMessageToPreviewIframe = (name, body) => {
     previewIframeRef.current.contentWindow.postMessage({
       name,
@@ -28,10 +33,16 @@ export default function Home() {
     });
   };
 
+  /**
+   * Sync the tokens used in the preview frame's theme
+   */
   useEffect(() => {
     postMessageToPreviewIframe("update_tokens", tokensManager.customTokens);
   }, [tokensManager.customTokens, previewIframeRef]);
 
+  /**
+   * Sync the HTML used in the preview frame
+   */
   useEffect(() => {
     postMessageToPreviewIframe("update_html", previewHtml);
   }, [previewHtml, previewIframeRef]);

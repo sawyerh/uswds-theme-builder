@@ -14,7 +14,7 @@ function useTokensManager() {
   /**
    * Custom theme variable values set by the user
    */
-  const [customTokens, setCustomTokens] = useState({});
+  const [customTokens, setCustomTokens] = useState(null);
   /**
    * CSS values for theme variables set by USWDS as defaults
    */

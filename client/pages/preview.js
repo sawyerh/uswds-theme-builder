@@ -37,9 +37,12 @@ export default function Preview() {
    * Load USWDS styles for the preview
    */
   const loadStyles = useDebouncedCallback(async () => {
-    let body;
-
     if (abortControllerRef.current) abortControllerRef.current.abort();
+    // Avoid unnecessarily generating a theme when we the user hasn't
+    // customized any of the theme variables yet.
+    if (typeof tokensCache !== "object") return;
+
+    let body;
     abortControllerRef.current = new AbortController();
 
     setIsLoading(true);
@@ -79,8 +82,11 @@ export default function Preview() {
   useEffect(() => {
     const handleFrameMessage = (event) => {
       const { name, body } = event.data;
-      if (name === "update_tokens") setTokensCache(body);
-      if (name === "update_html") setPreviewHtml(body);
+      if (name === "update_tokens") {
+        setTokensCache(body);
+      } else if (name === "update_html") {
+        setPreviewHtml(body);
+      }
     };
 
     window.addEventListener("message", handleFrameMessage, false);

@@ -8,7 +8,7 @@ const fs = require("fs/promises");
 const { parse } = require("postcss-scss");
 const path = require("path");
 const { set } = require("lodash");
-const variablesFromScss = require("../utils/variablesFromScss");
+const variablesFromScss = require("../src/utils/variablesFromScss");
 
 /**
  * @param {string} filename

@@ -81,6 +81,8 @@ const InputColor = (props) => {
             name={sassVariableName}
             value={value}
             id={id}
+            data-testid="input-color"
+            type="text"
           />
         </div>
       </div>

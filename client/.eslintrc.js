@@ -10,6 +10,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
+    "plugin:testing-library/dom",
+    "plugin:testing-library/react",
     "prettier",
   ],
   parserOptions: {
@@ -19,7 +21,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["jsx-a11y", "react", "react-hooks"],
+  plugins: ["jsx-a11y", "react", "react-hooks", "testing-library"],
   rules: {
     "@next/next/no-img-element": "off",
     "react/jsx-no-target-blank": "off",

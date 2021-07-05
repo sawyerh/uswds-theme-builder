@@ -8,8 +8,7 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 Future main() async {
   // https://cloud.google.com/run/docs/reference/container-contract#port
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
-  final origin =
-      Platform.environment['ORIGIN'] ?? 'https://uswds-theme-builder.web.app';
+  final origin = Platform.environment['ORIGIN'] ?? 'https://uswds-theme.dev';
 
   Response _setDefaultHeaders(Response response) {
     final corsHeaders = {

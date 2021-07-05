@@ -38,6 +38,18 @@ export default function Home() {
   };
 
   /**
+   * Redirect requests to the default Firebase domain.
+   */
+  useEffect(() => {
+    if (
+      process.env.NODE_ENV === "production" &&
+      window.origin.match(/uswds-theme.dev/) === null
+    ) {
+      window.location = "https://uswds-theme.dev";
+    }
+  }, []);
+
+  /**
    * Sync the tokens used in the preview frame's theme
    */
   useEffect(() => {
@@ -65,6 +77,7 @@ export default function Home() {
           name="description"
           content="Create a custom U.S. Web Design System theme using your project's colors, typography, and spacing."
         />
+        <link rel="canonical" href="https://uswds-theme.dev" />
       </Head>
       <div className="grid-row">
         <section className="grid-col-5 desktop:grid-col-3 bg-black height-viewport overflow-auto">

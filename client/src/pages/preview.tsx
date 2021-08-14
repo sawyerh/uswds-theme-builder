@@ -83,7 +83,7 @@ export default function Preview() {
       if (name === "update_tokens") {
         setTokensCache(body);
       } else if (name === "update_html") {
-        setPreviewHtml(body);
+        setPreviewHtml(body as string);
       }
     };
 

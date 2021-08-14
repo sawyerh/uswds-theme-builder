@@ -19,7 +19,7 @@ export const PopoverPicker = ({
 }: PopoverPickerProps) => {
   const popover = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
-  const id = useUniqueId();
+  const id = useUniqueId('PopoverPicker');
 
   useClickOutside(popover, () => toggle(false));
 

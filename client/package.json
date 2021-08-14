@@ -10,7 +10,8 @@
     "lint:fix": "npm run lint -- --fix",
     "postinstall": "./scripts/postinstall.sh",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "classnames": "^2.3.1",

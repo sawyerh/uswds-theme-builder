@@ -1,9 +1,9 @@
-interface UpdateHTMLMessageData {
+export interface UpdateHTMLMessageData {
   body: string;
   name: "update_html";
 }
 
-interface UpdateTokensMessageData {
+export interface UpdateTokensMessageData {
   body: Record<string, string>;
   name: "update_tokens";
 }

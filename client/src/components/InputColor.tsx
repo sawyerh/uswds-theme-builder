@@ -4,8 +4,15 @@ import TokensManagerContext from "../context/TokensManagerContext";
 import useClickOutside from "../hooks/useClickOutside";
 import { useDebounce } from "use-debounce";
 import useUniqueId from "../hooks/useUniqueId";
+import { ChangeEventHandler } from "react";
 
-export const PopoverPicker = ({ color, label, onChange }) => {
+interface PopoverPickerProps {
+  color: string;
+  label: string;
+  onChange: (color: string) => void;
+}
+
+export const PopoverPicker = ({ color, label, onChange }: PopoverPickerProps) => {
   const popover = useRef();
   const [isOpen, toggle] = useState(false);
   const id = useUniqueId();
@@ -20,7 +27,7 @@ export const PopoverPicker = ({ color, label, onChange }) => {
         style={{ backgroundColor: color }}
         onClick={() => toggle(true)}
         aria-controls={id}
-        aria-expanded={String(isOpen)}
+        aria-expanded={isOpen}
       >
         <span className="usa-sr-only">{label}</span>
       </button>
@@ -34,7 +41,11 @@ export const PopoverPicker = ({ color, label, onChange }) => {
   );
 };
 
-const InputColor = (props) => {
+interface InputColorProps {
+  sassVariableName: string;
+}
+
+const InputColor = (props: InputColorProps) => {
   const { sassVariableName } = props;
   const { getTokenValue, setCustomToken } = useContext(TokensManagerContext);
   const [hasChanged, setHasChanged] = useState(false);
@@ -48,11 +59,11 @@ const InputColor = (props) => {
   const [value, setValue] = useState(getTokenValue(sassVariableName));
   const [debouncedValue] = useDebounce(value, 500);
 
-  const changeValue = (value) => {
+  const changeValue = (value: string) => {
     setValue(value);
     setHasChanged(true);
   };
-  const handleChange = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     changeValue(event.target.value);
   };
 

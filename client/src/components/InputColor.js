@@ -5,7 +5,7 @@ import useClickOutside from "../hooks/useClickOutside";
 import { useDebounce } from "use-debounce";
 import useUniqueId from "../hooks/useUniqueId";
 
-export const PopoverPicker = ({ color, onChange }) => {
+export const PopoverPicker = ({ color, label, onChange }) => {
   const popover = useRef();
   const [isOpen, toggle] = useState(false);
   const id = useUniqueId();
@@ -22,9 +22,7 @@ export const PopoverPicker = ({ color, onChange }) => {
         aria-controls={id}
         aria-expanded={String(isOpen)}
       >
-        <span className="usa-sr-only">
-          {isOpen ? "Close" : "Open"} color picker
-        </span>
+        <span className="usa-sr-only">{label}</span>
       </button>
 
       {isOpen && (
@@ -73,7 +71,11 @@ const InputColor = (props) => {
         {colorName}
       </label>
       <div className="display-flex margin-bottom-105">
-        <PopoverPicker color={value} onChange={changeValue} />
+        <PopoverPicker
+          label={`${colorName}: color picker`}
+          color={value}
+          onChange={changeValue}
+        />
         <div className="flex-fill margin-left-1">
           <input
             className="usa-input width-full font-mono-3xs margin-top-0 height-4"

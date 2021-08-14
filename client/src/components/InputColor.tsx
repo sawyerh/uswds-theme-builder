@@ -1,10 +1,10 @@
+import type { ChangeEventHandler } from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import TokensManagerContext from "../context/TokensManagerContext";
 import useClickOutside from "../hooks/useClickOutside";
 import { useDebounce } from "use-debounce";
 import useUniqueId from "../hooks/useUniqueId";
-import { ChangeEventHandler } from "react";
 
 interface PopoverPickerProps {
   color: string;
@@ -12,8 +12,12 @@ interface PopoverPickerProps {
   onChange: (color: string) => void;
 }
 
-export const PopoverPicker = ({ color, label, onChange }: PopoverPickerProps) => {
-  const popover = useRef();
+export const PopoverPicker = ({
+  color,
+  label,
+  onChange,
+}: PopoverPickerProps) => {
+  const popover = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
   const id = useUniqueId();
 

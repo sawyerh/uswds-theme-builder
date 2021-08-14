@@ -28,3 +28,5 @@ jobs:
     - run: npm ci --prefix client
     - run: npm run test --prefix client
     - run: npm run lint --prefix client
+    # Run typescript type check and confirm build succeeds:
+    - run: npm run build --prefix client

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { PreviewFrameMessageEventData } from "../../types/common";
 
 let USWDS;
 if (typeof window !== "undefined") {
@@ -28,21 +29,16 @@ function initUswdsComponents() {
 export default function Preview() {
   const [styles, setStyles] = useState("");
   const [tokensCache, setTokensCache] = useState({});
-  const [previewError, setPreviewError] = useState();
-  const [previewHtml, setPreviewHtml] = useState();
-  const [isLoading, setIsLoading] = useState();
-  const abortControllerRef = useRef();
+  const [previewError, setPreviewError] = useState<string>();
+  const [previewHtml, setPreviewHtml] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
+  const abortControllerRef = useRef<AbortController>();
 
   /**
    * Load USWDS styles for the preview
    */
   const loadStyles = useDebouncedCallback(async () => {
     if (abortControllerRef.current) abortControllerRef.current.abort();
-    // Avoid unnecessarily generating a theme when we the user hasn't
-    // customized any of the theme variables yet.
-    if (typeof tokensCache !== "object") return;
-
-    let body;
     abortControllerRef.current = new AbortController();
 
     setIsLoading(true);
@@ -56,7 +52,7 @@ export default function Preview() {
         signal: abortControllerRef.current.signal,
       });
 
-      body = await response.text();
+      const body = await response.text();
       response.ok ? setStyles(body) : setPreviewError(body);
     } catch (error) {
       console.error(error);
@@ -69,7 +65,7 @@ export default function Preview() {
   /**
    * Re-generate the theme when tokens change
    */
-  useEffect(loadStyles, [tokensCache]);
+  useEffect(() => { loadStyles() }, [tokensCache]);
 
   /**
    * Initialize USWDS component JS anytime we render the preview's HTML
@@ -80,10 +76,10 @@ export default function Preview() {
    * Receive messages from the parent frame.
    */
   useEffect(() => {
-    const handleFrameMessage = (event) => {
+    const handleFrameMessage = (event: MessageEvent) => {
       if (event.origin !== window.origin) return;
 
-      const { name, body } = event.data;
+      const { name, body }: PreviewFrameMessageEventData = event.data;
       if (name === "update_tokens") {
         setTokensCache(body);
       } else if (name === "update_html") {
@@ -136,7 +132,12 @@ function LoadingScreen() {
   );
 }
 
-function SassError({ children, tokens }) {
+interface SassErrorProps {
+  children: string,
+  tokens: Record<string, string>;
+}
+
+function SassError({ children, tokens }: SassErrorProps) {
   return (
     <div className="font-mono-3xs text-white pin-top position-fixed z-top width-full overflow-y-auto maxh-viewport">
       <pre

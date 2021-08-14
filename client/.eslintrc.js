@@ -13,8 +13,10 @@ module.exports = {
     "plugin:testing-library/dom",
     "plugin:testing-library/react",
     "prettier",
+    "plugin:@typescript-eslint/recommended",
   ],
   parserOptions: {
+    parser: "@typescript-eslint/parser",
     ecmaFeatures: {
       jsx: true,
     },
@@ -24,6 +26,8 @@ module.exports = {
   plugins: ["jsx-a11y", "react", "react-hooks", "testing-library"],
   rules: {
     "@next/next/no-img-element": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-var-requires": "off",
     "react/jsx-no-target-blank": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",

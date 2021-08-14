@@ -1,5 +1,5 @@
 import { Clipboard, FilePlus, Sliders } from "phosphor-react";
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import IconButton from "../components/IconButton";
 import Header from "../components/Header";
 import Head from "next/head";
@@ -10,6 +10,7 @@ import defaultTemplateHtml from "../../templates/default.html";
 import dynamic from "next/dynamic";
 import formatHtml from "../utils/formatHtml";
 import useTokensManager from "../hooks/useTokensManager";
+import { PreviewFrameMessageEventData } from "../../types/common";
 
 const CodeEditor = dynamic(() => import("../components/CodeEditor"));
 const TokensExporter = dynamic(() => import("../components/TokensExporter"));
@@ -17,23 +18,22 @@ const TokensImporter = dynamic(() => import("../components/TokensImporter"));
 
 const initialPreviewFrameHtml = formatHtml(defaultTemplateHtml);
 
+type PanelName = "Editor" | "Export" | "Import";
+
 export default function Home() {
-  const [activePanel, setActivePanel] = useState(panelNavButtons[0].panel);
+  const [activePanel, setActivePanel] = useState<PanelName>(panelNavButtons[0].panel);
   // Frame can't accept messages until it's loaded and its listener is established.
   const [previewFrameLoaded, setPreviewFrameLoaded] = useState(false);
   const [previewFrameHtml, setPreviewFrameHtml] = useState(
     formatHtml(defaultTemplateHtml)
   );
-  const previewFrameRef = useRef();
+  const previewFrameRef = useRef<HTMLIFrameElement>();
   const tokensManager = useTokensManager();
 
   /**
    * Send data into the preview iframe.
-   * @param {string} name - Message name.
-   * @param {any} body - Data to send.
    */
-  const postMessageToPreviewIframe = (name, body) => {
-    const data = { name, body };
+  const postMessageToPreviewIframe = (data: PreviewFrameMessageEventData) => {
     previewFrameRef.current.contentWindow.postMessage(data, window.origin);
   };
 
@@ -45,7 +45,7 @@ export default function Home() {
       process.env.NODE_ENV === "production" &&
       window.origin.match(/uswds-theme.dev/) === null
     ) {
-      window.location = "https://uswds-theme.dev";
+      window.location.assign("https://uswds-theme.dev");
     }
   }, []);
 
@@ -53,14 +53,15 @@ export default function Home() {
    * Sync the tokens used in the preview frame's theme
    */
   useEffect(() => {
-    postMessageToPreviewIframe("update_tokens", tokensManager.customTokens);
+    postMessageToPreviewIframe(
+      { name: "update_tokens", body: tokensManager.customTokens });
   }, [tokensManager.customTokens, previewFrameRef, previewFrameLoaded]);
 
   /**
    * Sync the HTML used in the preview frame
    */
   useEffect(() => {
-    postMessageToPreviewIframe("update_html", previewFrameHtml);
+    postMessageToPreviewIframe({ name: "update_html", body: previewFrameHtml });
   }, [previewFrameHtml, previewFrameRef, previewFrameLoaded]);
 
   return (
@@ -114,7 +115,7 @@ export default function Home() {
   );
 }
 
-const panelNavButtons = [
+const panelNavButtons: { icon: ReactNode, panel: PanelName }[] = [
   {
     icon: Sliders,
     panel: "Editor",
@@ -129,7 +130,11 @@ const panelNavButtons = [
   },
 ];
 
-function PanelNav({ activePanel, onPanelChange }) {
+interface PanelNavProps {
+  activePanel: PanelName;
+  onPanelChange: (panel: PanelName) => void;
+}
+function PanelNav({ activePanel, onPanelChange }: PanelNavProps) {
   return (
     <nav className="border-bottom-1px border-base padding-left-1 padding-y-1">
       {panelNavButtons.map((navButton) => (

@@ -6,10 +6,8 @@ import { useState } from "react";
  * elements like the input, label, and error message, which is
  * important for a11y.
  * @example const id = useUniqueId("choice")
- * @param {string} [prefix] - ID prefix
- * @returns {string}
  */
-function useUniqueId(prefix) {
+function useUniqueId(prefix: string): string {
   // Store the unique ID as state so that it's not incremented on every render
   const [id] = useState(uniqueId(prefix));
 

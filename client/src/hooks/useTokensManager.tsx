@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import { get } from "lodash";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
@@ -14,7 +14,7 @@ function useTokensManager() {
   /**
    * Custom theme variable values set by the user
    */
-  const [customTokens, setCustomTokens] = useState(null);
+  const [customTokens, setCustomTokens] = useState<Record<string, string>>(null);
   /**
    * CSS values for theme variables set by USWDS as defaults
    */
@@ -43,18 +43,16 @@ function useTokensManager() {
   /**
    * Read the value of a token, either set by the user or the computed value
    * of the USWDS default
-   * @param {string} name - Theme variable name
-   * @returns {string}
    */
-  const getTokenValue = (name) => {
+  const getTokenValue = (name: string): string => {
     const value = get(customTokens, name) || get(computedDefaultTokens, name);
 
     if (value) return value;
     return "";
   };
 
-  const setCustomToken = (name, value) => {
-    setCustomTokens((prevCustomTokens) => {
+  const setCustomToken = (name: string, value: string) => {
+    setCustomTokens((prevCustomTokens: Record<string, string>) => {
       return {
         ...prevCustomTokens,
         [name]: value,
@@ -62,19 +60,18 @@ function useTokensManager() {
     });
   };
 
-  const handleChange = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setCustomToken(event.target.name, event.target.value);
   };
 
   /**
    * Read the tokens JSON from the query param
-   * @returns {object}
    */
-  const parseTokensFromQuery = () => {
-    if (!query.tokens) return;
+  const parseTokensFromQuery = (): Record<string, string> => {
+    if (!query.tokens) return {};
 
     try {
-      const tokensObject = JSON.parse(query.tokens);
+      const tokensObject = JSON.parse(query.tokens.toString());
       return tokensObject;
     } catch (error) {
       console.error(error);
@@ -86,7 +83,7 @@ function useTokensManager() {
    * Save the changed token to the URL query param
    */
   const updateTokensQuery = () => {
-    const url = new URL(window.location);
+    const url = new URL(window.location.toString());
     const queryParamName = "tokens";
 
     if (customTokens && Object.entries(customTokens).length) {

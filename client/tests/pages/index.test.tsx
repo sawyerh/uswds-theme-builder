@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import Page from "pages/index";
+import Page from "../../src/pages/index";
 import userEvent from "@testing-library/user-event";
 
 test("renders inputs for Sass color variables", async () => {
@@ -54,7 +54,7 @@ test("sends message to iFrame when token input changes", async () => {
   render(<Page />);
 
   const input = screen.getByLabelText("primary");
-  const iFrame = screen.getByTitle("Theme preview");
+  const iFrame = screen.getByTitle("Theme preview") as HTMLIFrameElement;
   const postMessageSpy = jest.spyOn(iFrame.contentWindow, "postMessage");
 
   // Expand the "Primary" color accordion

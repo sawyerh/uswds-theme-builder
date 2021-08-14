@@ -5,7 +5,7 @@
 
 module.exports = {
   clearMocks: true,
-  moduleDirectories: ["node_modules", "src"],
+  moduleDirectories: ["node_modules"],
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.js"],
   testEnvironment: "jsdom",
   testPathIgnorePatterns: ["/node_modules/", "/.next/", "/out/"],

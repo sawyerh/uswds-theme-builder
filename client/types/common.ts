@@ -1,10 +1,12 @@
+export type SassTokens = Record<string, string>;
+
 export interface UpdateHTMLMessageData {
   body: string;
   name: "update_html";
 }
 
 export interface UpdateTokensMessageData {
-  body: Record<string, string>;
+  body: SassTokens;
   name: "update_tokens";
 }
 

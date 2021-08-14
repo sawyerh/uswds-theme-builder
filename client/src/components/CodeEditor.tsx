@@ -5,12 +5,14 @@ import classNames from "classnames";
 import dynamic from "next/dynamic";
 import formatHtml from "../utils/formatHtml";
 import { useDebouncedCallback } from "use-debounce";
+import type { Editor } from "codemirror";
+import type { IUnControlledCodeMirror } from "react-codemirror2"
 
 if (typeof window !== "undefined") {
   require("codemirror/mode/xml/xml");
 }
 
-const CodeMirror = dynamic(() =>
+const CodeMirror = dynamic<IUnControlledCodeMirror>(() =>
   import("react-codemirror2").then((mod) => mod.UnControlled)
 );
 
@@ -18,13 +20,13 @@ const CodeEditor = (props) => {
   const { initialValue, onChange } = props;
   const [isExpanded, setIsExpanded] = useState(false);
   const handleToggleClick = () => setIsExpanded(!isExpanded);
-  const editorRef = useRef();
+  const editorRef = useRef<Editor>();
 
-  const handleChange = useDebouncedCallback((_editor, _data, value) => {
+  const handleChange = useDebouncedCallback((_editor: any, _data: any, value: string) => {
     onChange(value);
   }, 1000);
 
-  const handleEditorMount = (editor) => {
+  const handleEditorMount = (editor: Editor) => {
     editorRef.current = editor;
   };
 

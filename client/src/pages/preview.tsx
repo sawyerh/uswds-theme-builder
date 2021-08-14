@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { PreviewFrameMessageEventData } from "../../types/common";
+import { PreviewFrameMessageEventData, SassTokens } from "../../types/common";
 
 let USWDS;
 if (typeof window !== "undefined") {
@@ -134,7 +134,7 @@ function LoadingScreen() {
 
 interface SassErrorProps {
   children: string,
-  tokens: Record<string, string>;
+  tokens: SassTokens;
 }
 
 function SassError({ children, tokens }: SassErrorProps) {

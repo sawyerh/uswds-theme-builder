@@ -1,6 +1,12 @@
+import { ComponentType } from "react";
 import classnames from "classnames";
 
-const IconButton = (props) => {
+interface IconButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  icon: ComponentType;
+  iconProps?: any;
+}
+
+const IconButton = (props: IconButtonProps) => {
   const { children, className, icon: Icon, iconProps, ...buttonProps } = props;
 
   return (

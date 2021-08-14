@@ -10,7 +10,9 @@ import rgbToHex from "../utils/rgbToHex";
  * If a Sass color variable starts with one of these,
  * a control will be rendered for it.
  */
-const visibleVariablePrefixes = {
+type SassColorVariables = Array<string>;
+
+const visibleVariablePrefixes: Record<string, SassColorVariables> = {
   "$theme-color-base": [],
   "$theme-color-primary": [],
   "$theme-color-secondary": [],
@@ -67,7 +69,12 @@ const ColorTokens = () => {
   );
 };
 
-const ColorFamilyTokens = ({ variablePrefix, sassVariables }) => {
+interface ColorFamilyTokensProps {
+  sassVariables: SassColorVariables;
+  variablePrefix: string;
+}
+
+const ColorFamilyTokens = ({ variablePrefix, sassVariables }: ColorFamilyTokensProps) => {
   const { getTokenValue } = useContext(TokensManagerContext);
   const middleColor = getTokenValue(variablePrefix);
 
@@ -78,7 +85,7 @@ const ColorFamilyTokens = ({ variablePrefix, sassVariables }) => {
           className="circle-2 display-inline-block margin-right-1 text-middle"
           style={{ backgroundColor: middleColor }}
         >
-          {}
+          { }
         </span>
       ) : null}
       {`${variablePrefix.replace("$theme-color-", "")}`}
@@ -91,26 +98,30 @@ const ColorFamilyTokens = ({ variablePrefix, sassVariables }) => {
         <InputColor
           key={sassVariableName}
           sassVariableName={sassVariableName}
-          variablePrefix={variablePrefix}
         />
       ))}
     </AccordionItem>
   );
 };
 
+interface ComputedDefaultTokensSetterProps {
+  onComplete: () => void;
+  sassVariables: SassColorVariables;
+}
+
 /**
  * Mounts elements with USWDS utility classes in order to read the computed styles.
  * We should do this only once on mount in order to optimize performance.
  */
-const ComputedDefaultTokensSetter = ({ onComplete, sassVariables }) => {
-  const containerRef = useRef();
+const ComputedDefaultTokensSetter = ({ onComplete, sassVariables }: ComputedDefaultTokensSetterProps) => {
+  const containerRef = useRef<HTMLDivElement>();
   const { setComputedDefaultTokens } = useContext(TokensManagerContext);
 
   useEffect(() => {
     const elements = containerRef.current.querySelectorAll(
       "span[data-variable]"
     );
-    const computedColorTokens = {};
+    const computedColorTokens: Record<string, string> = {};
 
     elements.forEach((element) => {
       const computedStyle = getComputedStyle(element);

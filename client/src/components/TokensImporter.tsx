@@ -12,7 +12,7 @@ const TokensImporter = () => {
     const value = e.target.querySelector("textarea").value;
 
     try {
-      const scss = await parse(value, { syntax: "scss" });
+      const scss = await parse(value);
       const declarations = variablesFromScss(scss);
 
       if (declarations.length > 0) {

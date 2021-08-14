@@ -2,6 +2,7 @@ import { ChangeEventHandler, useEffect, useState } from "react";
 import { get } from "lodash";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
+import { SassTokens } from "../../types/common";
 
 /**
  * State manager for the Sass tokens. Facilitates caching of the
@@ -14,7 +15,7 @@ function useTokensManager() {
   /**
    * Custom theme variable values set by the user
    */
-  const [customTokens, setCustomTokens] = useState<Record<string, string>>(null);
+  const [customTokens, setCustomTokens] = useState<SassTokens>(null);
   /**
    * CSS values for theme variables set by USWDS as defaults
    */
@@ -52,7 +53,7 @@ function useTokensManager() {
   };
 
   const setCustomToken = (name: string, value: string) => {
-    setCustomTokens((prevCustomTokens: Record<string, string>) => {
+    setCustomTokens((prevCustomTokens: SassTokens) => {
       return {
         ...prevCustomTokens,
         [name]: value,
@@ -67,7 +68,7 @@ function useTokensManager() {
   /**
    * Read the tokens JSON from the query param
    */
-  const parseTokensFromQuery = (): Record<string, string> => {
+  const parseTokensFromQuery = (): SassTokens => {
     if (!query.tokens) return {};
 
     try {

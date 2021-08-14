@@ -1,5 +1,5 @@
 import { Clipboard, FilePlus, Sliders } from "phosphor-react";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { Component, ForwardRefExoticComponent, ReactNode, useEffect, useRef, useState } from "react";
 import IconButton from "../components/IconButton";
 import Header from "../components/Header";
 import Head from "next/head";
@@ -115,7 +115,7 @@ export default function Home() {
   );
 }
 
-const panelNavButtons: { icon: ReactNode, panel: PanelName }[] = [
+const panelNavButtons: { icon: ForwardRefExoticComponent<any>, panel: PanelName }[] = [
   {
     icon: Sliders,
     panel: "Editor",
@@ -140,7 +140,7 @@ function PanelNav({ activePanel, onPanelChange }: PanelNavProps) {
       {panelNavButtons.map((navButton) => (
         <IconButton
           key={navButton.panel}
-          aria-current={String(navButton.panel === activePanel)}
+          aria-current={navButton.panel === activePanel}
           className={classnames(
             "padding-y-1 padding-x-1 font-body-2xs hover:text-white",
             {

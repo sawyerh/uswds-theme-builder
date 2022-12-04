@@ -1,5 +1,12 @@
 import { Clipboard, FilePlus, Sliders } from "phosphor-react";
-import { Component, ForwardRefExoticComponent, ReactNode, useEffect, useRef, useState } from "react";
+import {
+  Component,
+  ForwardRefExoticComponent,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import IconButton from "../components/IconButton";
 import Header from "../components/Header";
 import Head from "next/head";
@@ -21,7 +28,9 @@ const initialPreviewFrameHtml = formatHtml(defaultTemplateHtml);
 type PanelName = "Editor" | "Export" | "Import";
 
 export default function Home() {
-  const [activePanel, setActivePanel] = useState<PanelName>(panelNavButtons[0].panel);
+  const [activePanel, setActivePanel] = useState<PanelName>(
+    panelNavButtons[0].panel
+  );
   // Frame can't accept messages until it's loaded and its listener is established.
   const [previewFrameLoaded, setPreviewFrameLoaded] = useState(false);
   const [previewFrameHtml, setPreviewFrameHtml] = useState(
@@ -53,8 +62,10 @@ export default function Home() {
    * Sync the tokens used in the preview frame's theme
    */
   useEffect(() => {
-    postMessageToPreviewIframe(
-      { name: "update_tokens", body: tokensManager.customTokens });
+    postMessageToPreviewIframe({
+      name: "update_tokens",
+      body: tokensManager.customTokens,
+    });
   }, [tokensManager.customTokens, previewFrameRef, previewFrameLoaded]);
 
   /**
@@ -67,13 +78,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        {process.env.NODE_ENV !== "development" ? (
-          <script
-            src="https://cdn.usefathom.com/script.js"
-            data-site="VSKIJXFW"
-            defer
-          ></script>
-        ) : null}
         <meta
           name="description"
           content="Create a custom U.S. Web Design System theme using your project's colors, typography, and spacing."
@@ -115,7 +119,10 @@ export default function Home() {
   );
 }
 
-const panelNavButtons: { icon: ForwardRefExoticComponent<any>, panel: PanelName }[] = [
+const panelNavButtons: {
+  icon: ForwardRefExoticComponent<any>;
+  panel: PanelName;
+}[] = [
   {
     icon: Sliders,
     panel: "Editor",
